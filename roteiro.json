@@ -1,0 +1,273 @@
+{
+    "brand": "Urubici '25",
+    "heroDates": "Quinta, 3 Abr - Domingo, 6 Abr · 2025",
+    "footer": "Urubici · Serra Catarinense · Abr 2025",
+    "weather": {
+        "fact": "Urubici e a cidade mais fria do Brasil",
+        "tip": "Leve agasalho sempre",
+        "minTemp": "0°C"
+    },
+    "lodge": {
+        "icon": "🏡",
+        "title": "Hospedagem · Airbnb",
+        "name": "Cabana Vo Maria 2",
+        "detail": "Base para todos os dias - Urubici, Santa Catarina",
+        "note": "🌲 Ambiente de cabana na serra - perfeito para as noites frias"
+    },
+    "days": [
+        {
+            "shortLabel": "Qui",
+            "tabLabel": "Dia 1 · Qui",
+            "tabName": "Chegada",
+            "weekday": "Quinta-feira · Dia 1",
+            "titlePrefix": "Chegada &",
+            "titleEm": "primeiras impressoes",
+            "items": [
+                {
+                    "time": "15h00",
+                    "emoji": "🏡",
+                    "name": "Check-in - Cabana Vo Maria 2",
+                    "tag": "Airbnb · Hospedagem",
+                    "desc": "Chegada e instalacao na cabana. Descanse apos a viagem, prepare as malas para os dias de trilha e aproveite para conhecer o espaco.",
+                    "location": {
+                        "lat": -27.985,
+                        "lng": -49.594,
+                        "label": "Cabana Vo Maria 2, Urubici - SC"
+                    }
+                },
+                {
+                    "variant": "highlight",
+                    "time": "16h00",
+                    "emoji": "⛰️",
+                    "name": "Morro do Campestre",
+                    "tag": "Atracao Natural · ⭐ 4,8 · Aberto ate 18h",
+                    "desc": "Vista panoramica do vale de Urubici. Trilha de subida relativamente facil; a formacao rochosa no topo e impressionante.",
+                    "tip": "🌅 Chegue ate as 16h30 para garantir a luz do por do sol",
+                    "location": {
+                        "lat": -27.9494,
+                        "lng": -49.625,
+                        "label": "Morro do Campestre, Urubici - SC"
+                    }
+                },
+                {
+                    "separator": "Noite"
+                },
+                {
+                    "variant": "night",
+                    "time": "19h00",
+                    "emoji": "🍺",
+                    "name": "Tracado Cervejaria & Manana Artesanal",
+                    "tag": "Jantar · ⭐ 4,8 · Qui-Sex: 17h30-22h",
+                    "desc": "Jantar de boas-vindas com cervejas artesanais da casa. Ambiente pequeno, acolhedor e informal.",
+                    "tip": "📞 (49) 9 9996-9174 · Fechado seg e ter",
+                    "location": {
+                        "lat": -28.0147,
+                        "lng": -49.5929,
+                        "label": "Tracado Cervejaria e Manana Artesanal, centro de Urubici"
+                    }
+                }
+            ]
+        },
+        {
+            "shortLabel": "Sex",
+            "tabLabel": "Dia 2 · Sex",
+            "tabName": "Morro da Igreja",
+            "weekday": "Sexta-feira · Dia 2",
+            "titlePrefix": "Morro da Igreja &",
+            "titleEm": "Veu da Noiva",
+            "items": [
+                {
+                    "variant": "highlight",
+                    "time": "08h00",
+                    "emoji": "🔭",
+                    "name": "Mirante Morro da Igreja - Pedra Furada",
+                    "tag": "Atracao Principal · ⭐ 4,9 · Aberto 8h-18h",
+                    "scheduled": true,
+                    "desc": "O ponto mais alto de Santa Catarina (~1.822 m). Vista epica do canion e do vale envolto em nevoa.",
+                    "tip": "⚠️ Va cedo! A nevoa cobre o mirante ao longo do dia. Agasalho obrigatorio.",
+                    "location": {
+                        "lat": -28.1311,
+                        "lng": -49.4794,
+                        "label": "Morro da Igreja / Pedra Furada, Parque Nacional de Sao Joaquim"
+                    }
+                },
+                {
+                    "time": "11h00",
+                    "emoji": "💧",
+                    "name": "Cascata Veu da Noiva",
+                    "tag": "Cachoeira · ⭐ 4,7 · Aberto 8h30-18h",
+                    "desc": "No caminho de volta do Morro da Igreja. Trilha facil ate a base da cascata.",
+                    "tip": "🎿 Tem tirolesa no local se quiser uma aventura extra",
+                    "location": {
+                        "lat": -28.1123,
+                        "lng": -49.4927,
+                        "label": "Cascata Veu da Noiva, Urubici - SC"
+                    }
+                },
+                {
+                    "time": "13h00",
+                    "emoji": "🍽️",
+                    "name": "Almoco - Montes Restaurante",
+                    "tag": "Restaurante · ⭐ 4,7 · Sex: 12h-15h · 19h-22h",
+                    "desc": "Um dos melhores restaurantes de Urubici, com destaque para truta com pinhao.",
+                    "tip": "📞 (49) 9 8807-3723 · Reserve com antecedencia",
+                    "location": {
+                        "lat": -28.0202,
+                        "lng": -49.5928,
+                        "label": "Montes Restaurante, Urubici - SC"
+                    }
+                },
+                {
+                    "time": "15h00",
+                    "emoji": "🛍️",
+                    "name": "Exploracao livre - Centro de Urubici",
+                    "tag": "Passeio Livre · Tarde",
+                    "desc": "Percorra as ruas do centro e descubra lojas de produtos coloniais.",
+                    "location": {
+                        "lat": -28.0156,
+                        "lng": -49.5924,
+                        "label": "Centro de Urubici - SC"
+                    }
+                },
+                {
+                    "separator": "Noite"
+                },
+                {
+                    "variant": "night",
+                    "time": "19h30",
+                    "emoji": "🌙",
+                    "name": "Noite na Cabana",
+                    "tag": "Descanso · Cabana Vo Maria 2",
+                    "desc": "Noite tranquila na cabana apos um dia intenso de trilhas.",
+                    "location": {
+                        "lat": -27.985,
+                        "lng": -49.594,
+                        "label": "Cabana Vo Maria 2, Urubici - SC"
+                    }
+                }
+            ]
+        },
+        {
+            "shortLabel": "Sab",
+            "tabLabel": "Dia 3 · Sab",
+            "tabName": "Serra Corvo Branco",
+            "weekday": "Sabado · Dia 3",
+            "titlePrefix": "Serra do",
+            "titleEm": "Corvo Branco",
+            "items": [
+                {
+                    "variant": "highlight",
+                    "time": "09h00",
+                    "emoji": "🦅",
+                    "name": "Altos da Serra do Corvo Branco",
+                    "tag": "Atracao Natural · ⭐ 4,9 · Aberto 9h-17h",
+                    "desc": "Cinco mirantes espetaculares, dois deles com piso de vidro.",
+                    "tip": "☀️ Prefira um dia de ceu aberto. Reserva recomendada: (48) 9 9186-5517",
+                    "location": {
+                        "lat": -28.0894,
+                        "lng": -49.3609,
+                        "label": "Altos da Serra do Corvo Branco, Urubici - SC"
+                    }
+                },
+                {
+                    "time": "12h30",
+                    "emoji": "🍖",
+                    "name": "Almoco - Rancho Urubici",
+                    "tag": "Restaurante Colonial · ⭐ 4,6 · Sab: 9h-17h",
+                    "desc": "Buffet colonial tipico da regiao serrana no caminho de volta.",
+                    "location": {
+                        "lat": -28.0408,
+                        "lng": -49.5566,
+                        "label": "Rancho Urubici, SC-110, Urubici - SC"
+                    }
+                },
+                {
+                    "time": "15h00",
+                    "emoji": "☕",
+                    "name": "Tarde Livre",
+                    "tag": "Descanso · Cabana",
+                    "desc": "Tarde para relaxar e recarregar as energias antes do jantar.",
+                    "location": {
+                        "lat": -27.985,
+                        "lng": -49.594,
+                        "label": "Cabana Vo Maria 2, Urubici - SC"
+                    }
+                },
+                {
+                    "separator": "Noite"
+                },
+                {
+                    "variant": "night",
+                    "time": "19h30",
+                    "emoji": "🫕",
+                    "name": "Jantar - Restaurante Bodegao",
+                    "tag": "Jantar · ⭐ 4,4 · Sab: 11h30-21h",
+                    "desc": "Fondue, truta com pinhao e uma excelente selecao de vinhos.",
+                    "tip": "🍷 Experimente os vinhos catarinenses",
+                    "location": {
+                        "lat": -28.0181,
+                        "lng": -49.5922,
+                        "label": "Restaurante Bodegao, Urubici - SC"
+                    }
+                }
+            ]
+        },
+        {
+            "shortLabel": "Dom",
+            "tabLabel": "Dia 4 · Dom",
+            "tabName": "Retorno",
+            "weekday": "Domingo · Dia 4",
+            "titlePrefix": "Cafe da manha &",
+            "titleEm": "retorno",
+            "items": [
+                {
+                    "time": "09h30",
+                    "emoji": "☕",
+                    "name": "Cafe da manha - Tracado / Manana Artesanal",
+                    "tag": "Cafe · ⭐ 4,8 · Confirmar horario de dom.",
+                    "desc": "Paes artesanais e cafe especial para fechar a viagem.",
+                    "tip": "☕ Alternativa: cafe da manha na cabana com produtos locais",
+                    "location": {
+                        "lat": -28.0147,
+                        "lng": -49.5929,
+                        "label": "Tracado Cervejaria e Manana Artesanal, centro de Urubici"
+                    }
+                },
+                {
+                    "time": "10h30",
+                    "emoji": "🧳",
+                    "name": "Check-out - Cabana Vo Maria 2",
+                    "tag": "Checkout · Arrumacao das malas",
+                    "desc": "Arrume as malas com calma e aproveite os ultimos momentos da serra.",
+                    "location": {
+                        "lat": -27.985,
+                        "lng": -49.594,
+                        "label": "Cabana Vo Maria 2, Urubici - SC"
+                    }
+                },
+                {
+                    "variant": "highlight",
+                    "time": "12h00",
+                    "emoji": "🚗",
+                    "name": "Partida - Retorno a Joacaba",
+                    "tag": "Viagem de Volta",
+                    "desc": "Hora de voltar carregado de memorias. Ate a proxima, Urubici!",
+                    "location": {
+                        "lat": -27.1775,
+                        "lng": -51.5039,
+                        "label": "Joaçaba - SC (destino de retorno)"
+                    }
+                }
+            ]
+        }
+    ],
+    "tips": [
+        "O Morro da Igreja exige agendamento previo pelo site do ICMBio - ja realizado",
+        "A Tracado Cervejaria fecha domingo e segunda - o jantar encaixa na quinta",
+        "Na Serra do Corvo Branco, prefira um dia de ceu aberto",
+        "Leve agasalho sempre - as noites podem chegar a 0°C mesmo no outono",
+        "Calcados fechados e impermeaveis sao essenciais para as trilhas",
+        "Confirme o funcionamento da Manana no domingo antes de ir",
+        "Tenha dinheiro em especie - alguns atrativos locais nao aceitam cartao"
+    ]
+}
