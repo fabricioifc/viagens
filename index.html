@@ -848,6 +848,38 @@
             line-height: 1.35;
         }
 
+        .map-popup-actions {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.55rem;
+        }
+
+        .map-popup-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.28rem 0.6rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border: 1px solid transparent;
+        }
+
+        .map-popup-btn.google {
+            background: #f3f7ff;
+            border-color: #c7d8ff;
+            color: #1f4fbf;
+        }
+
+        .map-popup-btn.apple {
+            background: #f4f4f4;
+            border-color: #d7d7d7;
+            color: #2d2d2d;
+        }
+
         @media (max-width: 500px) {
             .day-tab-name {
                 font-size: 0.7rem;
@@ -1224,11 +1256,18 @@
                     }
 
                     const marker = L.marker([item.location.lat, item.location.lng]);
+                    const locationLabel = item.location.label || item.name;
+                    const googleUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.location.lat},${item.location.lng}`)}`;
+                    const appleUrl = `https://maps.apple.com/?ll=${encodeURIComponent(`${item.location.lat},${item.location.lng}`)}&q=${encodeURIComponent(locationLabel)}`;
                     const popup = `
                         <div class="map-popup">
                             <div class="map-popup-title">${escapeHtml(item.emoji)} ${escapeHtml(item.name)}</div>
                             <div class="map-popup-meta">Dia ${dayIdx + 1} · ${escapeHtml(item.time)} · ${escapeHtml(day.shortLabel)}</div>
-                            <div class="map-popup-loc">${escapeHtml(item.location.label || 'Local sem descricao')}</div>
+                            <div class="map-popup-loc">${escapeHtml(locationLabel)}</div>
+                            <div class="map-popup-actions">
+                                <a class="map-popup-btn google" href="${googleUrl}" target="_blank" rel="noopener noreferrer">Google Maps</a>
+                                <a class="map-popup-btn apple" href="${appleUrl}" target="_blank" rel="noopener noreferrer">Apple Maps</a>
+                            </div>
                         </div>
                     `;
 

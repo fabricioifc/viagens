@@ -1,4 +1,4 @@
-# Roteiro de Viagem em JSON
+# Roteiro de Viagem - Urubici/SC
 
 Este projeto agora carrega todo o roteiro a partir do arquivo `roteiro.json`.
 
@@ -50,5 +50,3 @@ Para aparecer no mapa, cada atividade precisa de:
 	"label": "Descricao do local"
 }
 ```
-
-Itens separadores (`separator`) nao usam localizacao.
