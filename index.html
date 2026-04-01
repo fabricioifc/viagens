@@ -1477,6 +1477,12 @@
             }
         }
 
+        // ao clicar na classe scroll-hint (rolar), rola suavemente para a div#weatherBar
+        document.querySelector('.scroll-hint').addEventListener('click', () => {
+            const offset = document.getElementById('weatherBar').getBoundingClientRect().top + window.scrollY - 0;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
+        });
+
         init();
     </script>
 </body>
