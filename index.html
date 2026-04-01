@@ -2,1632 +2,1632 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Urubici — Roteiro de Viagem</title>
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%221a2e1a%22><text y=%221.2em%22 font-size=%2218%22>🌲</text></svg>">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <style>
-        :root {
-            --pine: #1a2e1a;
-            --forest: #2d4a2d;
-            --moss: #4a6741;
-            --sage: #7a9e6e;
-            --mist: #b8cbb3;
-            --cream: #f5f0e8;
-            --warm: #ede5d0;
-            --stone: #9b8f7a;
-            --amber: #c4762a;
-            --gold: #e8a84a;
-            --snow: #ffffff;
-            --fog: rgba(26, 46, 26, 0.06);
-        }
-
-        body {
-            transition: background-color 0.25s ease, color 0.25s ease;
-        }
-
-        body[data-theme='dark'] {
-            --pine: #dbead7;
-            --forest: #98bf95;
-            --moss: #8fb38a;
-            --sage: #779d71;
-            --mist: #5d7759;
-            --cream: #101410;
-            --warm: #1a2219;
-            --stone: #a4b7a0;
-            --amber: #f1b262;
-            --gold: #ffd087;
-            --snow: #1b231b;
-            --fog: rgba(230, 246, 228, 0.06);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: var(--cream);
-            color: var(--pine);
-            font-family: 'Crimson Pro', Georgia, serif;
-            font-size: 18px;
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        /* ─── GRAIN OVERLAY ─── */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 999;
-            opacity: 0.5;
-        }
-
-        /* ─── HERO ─── */
-        .hero {
-            min-height: 100vh;
-            background: var(--pine);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            padding: 2rem;
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 80% 60% at 50% 110%, #2d4a2d 0%, transparent 70%),
-                radial-gradient(ellipse 60% 40% at 20% 0%, #4a6741 0%, transparent 60%),
-                radial-gradient(ellipse 40% 60% at 80% 10%, #1a2e1a 0%, transparent 50%);
-            opacity: 0.9;
-        }
-
-        /* Silhouette mountains */
-        .mountains {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 45%;
-        }
-
-        .mountains svg {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        /* Stars */
-        .stars {
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(1px 1px at 10% 15%, rgba(184, 203, 179, 0.6) 0%, transparent 100%),
-                radial-gradient(1px 1px at 25% 8%, rgba(184, 203, 179, 0.4) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 40% 20%, rgba(232, 168, 74, 0.5) 0%, transparent 100%),
-                radial-gradient(1px 1px at 55% 5%, rgba(184, 203, 179, 0.6) 0%, transparent 100%),
-                radial-gradient(1px 1px at 70% 12%, rgba(184, 203, 179, 0.3) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 85% 7%, rgba(184, 203, 179, 0.5) 0%, transparent 100%),
-                radial-gradient(1px 1px at 92% 18%, rgba(184, 203, 179, 0.4) 0%, transparent 100%),
-                radial-gradient(1px 1px at 15% 30%, rgba(184, 203, 179, 0.3) 0%, transparent 100%),
-                radial-gradient(1px 1px at 60% 25%, rgba(184, 203, 179, 0.4) 0%, transparent 100%),
-                radial-gradient(1px 1px at 78% 35%, rgba(184, 203, 179, 0.3) 0%, transparent 100%);
-            animation: twinkle 4s ease-in-out infinite alternate;
-        }
-
-        @keyframes twinkle {
-            from {
-                opacity: 0.7;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            animation: heroFade 1.2s ease both;
-        }
-
-        @keyframes heroFade {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-tag {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.65rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3.5rem, 10vw, 8rem);
-            font-weight: 900;
-            color: var(--cream);
-            line-height: 0.9;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-        }
-
-        .hero-title em {
-            font-style: italic;
-            color: var(--gold);
-        }
-
-        .hero-subtitle {
-            font-family: 'Crimson Pro', serif;
-            font-size: clamp(1rem, 2.5vw, 1.4rem);
-            font-weight: 300;
-            font-style: italic;
-            color: var(--mist);
-            margin-top: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .hero-dates {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            color: var(--sage);
-            margin-bottom: 3rem;
-        }
-
-        .hero-lodge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(184, 203, 179, 0.2);
-            border-radius: 3rem;
-            padding: 0.6rem 1.4rem;
-            color: var(--mist);
-            font-size: 0.9rem;
-            backdrop-filter: blur(8px);
-        }
-
-        .hero-lodge .icon {
-            font-size: 1rem;
-        }
-
-        .scroll-hint {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.4rem;
-            color: var(--mist);
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            opacity: 0.6;
-            animation: bounce 2s ease-in-out infinite;
-            cursor: pointer;
-        }
-
-        @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateX(-50%) translateY(0);
-            }
-
-            50% {
-                transform: translateX(-50%) translateY(6px);
-            }
-        }
-
-        /* ─── NAV ─── */
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(245, 240, 232, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(74, 103, 65, 0.15);
-            padding: 0 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 56px;
-            transition: box-shadow 0.3s;
-        }
-
-        nav.scrolled {
-            box-shadow: 0 2px 20px rgba(26, 46, 26, 0.08);
-        }
-
-        body[data-theme='dark'] nav {
-            background: rgba(16, 20, 16, 0.88);
-            border-bottom-color: rgba(184, 203, 179, 0.18);
-        }
-
-        .nav-brand {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--pine);
-            letter-spacing: -0.01em;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .nav-days {
-            display: flex;
-            gap: 0.25rem;
-        }
-
-        .nav-day {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.65rem;
-            letter-spacing: 0.1em;
-            padding: 0.3rem 0.7rem;
-            border-radius: 2rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: var(--stone);
-            border: 1px solid transparent;
-            background: none;
-            text-transform: uppercase;
-        }
-
-        .nav-day:hover {
-            color: var(--pine);
-            border-color: var(--mist);
-        }
-
-        .nav-day.active {
-            background: var(--pine);
-            color: var(--cream);
-        }
-
-        .theme-toggle {
-            width: 36px;
-            height: 36px;
-            border-radius: 999px;
-            border: 1px solid rgba(74, 103, 65, 0.2);
-            background: rgba(255, 255, 255, 0.7);
-            color: var(--pine);
-            font-size: 1rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.25s ease;
-        }
-
-        .theme-toggle:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 16px rgba(26, 46, 26, 0.12);
-        }
-
-        body[data-theme='dark'] .theme-toggle {
-            background: rgba(40, 54, 40, 0.95);
-            border-color: rgba(184, 203, 179, 0.28);
-            color: #ffd087;
-        }
-
-        /* ─── WEATHER BADGE ─── */
-        .weather-bar {
-            background: var(--forest);
-            color: var(--mist);
-            text-align: center;
-            padding: 0.6rem 1rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.65rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-        }
-
-        .weather-bar span {
-            color: var(--gold);
-        }
-
-        /* ─── MAIN LAYOUT ─── */
-        main {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        /* ─── DAY SECTIONS ─── */
-        .day-section {
-            padding: 5rem 0 3rem;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .day-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .day-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .day-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 6rem;
-            font-weight: 900;
-            color: var(--mist);
-            line-height: 1;
-            flex-shrink: 0;
-            line-height: 0.85;
-            margin-top: 0.2rem;
-        }
-
-        .day-info {
-            flex: 1;
-        }
-
-        .day-weekday {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.65rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--amber);
-            margin-bottom: 0.3rem;
-        }
-
-        .day-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.6rem, 4vw, 2.4rem);
-            font-weight: 700;
-            color: var(--pine);
-            line-height: 1.1;
-        }
-
-        .day-title em {
-            font-style: italic;
-            color: var(--moss);
-        }
-
-        .day-divider {
-            height: 1px;
-            background: linear-gradient(to right, var(--mist), transparent);
-            margin-top: 1.5rem;
-        }
-
-        /* ─── ACTIVITY CARDS ─── */
-        .activities {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .activity {
-            display: grid;
-            grid-template-columns: 80px 1fr;
-            gap: 1.5rem;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 12px;
-            border: 1px solid rgba(74, 103, 65, 0.1);
-            position: relative;
-            overflow: hidden;
-            /* transition: transform 0.25s, box-shadow 0.25s; */
-        }
-
-        body[data-theme='dark'] .activity,
-        body[data-theme='dark'] .map-section,
-        body[data-theme='dark'] .day-tab {
-            background: #171f17;
-            border-color: rgba(184, 203, 179, 0.16);
-        }
-
-        .activity::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--sage);
-            border-radius: 0;
-        }
-
-        .activity.highlight::before {
-            background: var(--amber);
-        }
-
-        .activity.night::before {
-            background: var(--forest);
-        }
-
-        .activity:hover {
-            /* transform: translateY(-2px); */
-            box-shadow: 0 8px 32px rgba(26, 46, 26, 0.1);
-        }
-
-        .activity-time {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 0.3rem;
-            padding-top: 0.1rem;
-        }
-
-        .time-text {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--moss);
-            letter-spacing: 0.05em;
-            line-height: 1.1;
-            text-align: center;
-        }
-
-        .activity.night .time-text {
-            color: var(--stone);
-        }
-
-        .activity.highlight .time-text {
-            color: var(--amber);
-        }
-
-        .time-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--sage);
-            margin-top: 0.3rem;
-        }
-
-        .activity.highlight .time-dot {
-            background: var(--amber);
-        }
-
-        .activity.night .time-dot {
-            background: var(--forest);
-        }
-
-        .activity-body {
-            flex: 1;
-        }
-
-        .activity-emoji {
-            font-size: 1.4rem;
-            margin-bottom: 0.3rem;
-            display: block;
-        }
-
-        .activity-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--pine);
-            margin-bottom: 0.2rem;
-            line-height: 1.2;
-        }
-
-        .activity-tag {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--stone);
-            margin-bottom: 0.6rem;
-        }
-
-        .activity-desc {
-            font-size: 0.95rem;
-            color: #4a4a3a;
-            line-height: 1.6;
-        }
-
-        .activity-tip {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            margin-top: 0.8rem;
-            background: var(--fog);
-            border-radius: 6px;
-            padding: 0.4rem 0.7rem;
-            font-size: 0.82rem;
-            color: var(--stone);
-            border: 1px solid rgba(74, 103, 65, 0.08);
-        }
-
-        .activity-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.45rem;
-            margin-top: 0.75rem;
-        }
-
-        .activity-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            padding: 0.35rem 0.62rem;
-            border-radius: 999px;
-            text-decoration: none;
-            border: 1px solid rgba(74, 103, 65, 0.12);
-            background: #fcfbf8;
-            color: var(--pine);
-            transition: transform 0.15s ease, box-shadow 0.2s ease;
-        }
-
-        body[data-theme='dark'] .activity-link {
-            background: #1d261d;
-            border-color: rgba(184, 203, 179, 0.2);
-            color: #dbead7;
-        }
-
-        .activity-link:hover {
-            /* transform: translateY(-1px); */
-            box-shadow: 0 4px 14px rgba(26, 46, 26, 0.09);
-        }
-
-        .activity-link-icon {
-            font-size: 0.86rem;
-            line-height: 1;
-        }
-
-        .activity-link-label {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.58rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-
-        .activity-link.instagram {
-            background: #fff6fa;
-            border-color: #f2c8db;
-            color: #8a2c5f;
-        }
-
-        .activity-link.maps {
-            background: #f3f7ff;
-            border-color: #c7d8ff;
-            color: #1f4fbf;
-        }
-
-        .activity-link.street {
-            background: #effaf3;
-            border-color: #bfdfca;
-            color: #1d6d43;
-        }
-
-        /* ─── BADGE SCHEDULED ─── */
-        .badge-scheduled {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            background: #fff7ed;
-            border: 1px solid #f0c070;
-            border-radius: 2rem;
-            padding: 0.2rem 0.6rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.58rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--amber);
-            margin-bottom: 0.5rem;
-            margin-top: 0.2rem;
-        }
-
-        body[data-theme='dark'] .badge-scheduled {
-            background: #3a2d17;
-            border-color: #8f6b33;
-            color: #ffd087;
-        }
-
-        /* ─── TIPS BOX ─── */
-        .tips-section {
-            margin: 4rem 0;
-            background: var(--pine);
-            border-radius: 16px;
-            padding: 2.5rem;
-            color: var(--cream);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tips-section::before {
-            content: '⚠';
-            position: absolute;
-            right: 2rem;
-            top: 1rem;
-            font-size: 5rem;
-            opacity: 0.05;
-        }
-
-        .tips-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-            color: var(--gold);
-        }
-
-        .tips-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .tips-list li {
-            display: flex;
-            gap: 0.8rem;
-            align-items: flex-start;
-            font-size: 0.95rem;
-            color: var(--mist);
-            line-height: 1.5;
-        }
-
-        .tips-list li::before {
-            content: '—';
-            color: var(--gold);
-            flex-shrink: 0;
-            margin-top: 0.05rem;
-            font-family: 'Space Mono', monospace;
-        }
-
-        /* ─── LODGE CARD ─── */
-        .lodge-card {
-            background: var(--warm);
-            border: 1px solid rgba(155, 143, 122, 0.25);
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 4rem 0;
-            display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-        }
-
-        body[data-theme='dark'] .lodge-card {
-            border-color: rgba(184, 203, 179, 0.18);
-        }
-
-        .lodge-icon {
-            font-size: 2.5rem;
-            flex-shrink: 0;
-        }
-
-        .lodge-info-title {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--stone);
-            margin-bottom: 0.3rem;
-        }
-
-        .lodge-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--pine);
-            margin-bottom: 0.4rem;
-        }
-
-        .lodge-detail {
-            font-size: 0.9rem;
-            color: var(--stone);
-            font-style: italic;
-        }
-
-        /* ─── TEMPERATURE ─── */
-        .temp-note {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: #e8f0e8;
-            border-radius: 6px;
-            padding: 0.3rem 0.6rem;
-            font-size: 0.8rem;
-            color: var(--forest);
-            margin-top: 0.4rem;
-            font-family: 'Space Mono', monospace;
-        }
-
-        body[data-theme='dark'] .temp-note {
-            background: #213021;
-            color: #c9dec4;
-        }
-
-        /* ─── FOOTER ─── */
-        footer {
-            background: var(--pine);
-            color: var(--sage);
-            text-align: center;
-            padding: 3rem 1.5rem;
-            margin-top: 6rem;
-        }
-
-        footer .footer-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-style: italic;
-            color: var(--cream);
-            margin-bottom: 0.5rem;
-        }
-
-        footer p {
-            font-size: 0.85rem;
-            opacity: 0.6;
-            font-family: 'Space Mono', monospace;
-            letter-spacing: 0.1em;
-        }
-
-        /* ─── DAY SEPARATOR ─── */
-        .day-sep {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-
-        .day-sep::before,
-        .day-sep::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--mist);
-            opacity: 0.4;
-        }
-
-        .day-sep span {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 0.2em;
-            color: var(--stone);
-            text-transform: uppercase;
-        }
-
-        /* ─── RESPONSIVE ─── */
-        @media (max-width: 820px) {
-            .day-tab-strip {
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-            }
-
-            .day-tab {
-                min-width: 150px;
-                scroll-snap-align: start;
-            }
-        }
-
-        @media (max-width: 600px) {
-            nav {
-                padding: 0 0.8rem;
-                height: 52px;
-            }
-
-            .nav-days {
-                display: none;
-            }
-
-            .nav-brand {
-                font-size: 1rem;
-            }
-
-            .theme-toggle {
-                width: 34px;
-                height: 34px;
-                font-size: 0.95rem;
-            }
-
-            .weather-bar {
-                font-size: 0.56rem;
-                letter-spacing: 0.08em;
-                padding: 0.65rem 0.7rem;
-                line-height: 1.5;
-            }
-
-            main {
-                padding: 0 0.95rem;
-            }
-
-            .hero {
-                min-height: 86vh;
-                padding: 1.2rem;
-            }
-
-            .hero-tag {
-                letter-spacing: 0.2em;
-                margin-bottom: 1rem;
-            }
-
-            .day-header {
-                gap: 0.7rem;
-                margin-bottom: 1.8rem;
-                flex-direction: column;
-            }
-
-            .day-number {
-                font-size: 3rem;
-                margin-top: 0;
-            }
-
-            .day-section {
-                padding: 3rem 0 1.5rem;
-            }
-
-            .activity {
-                grid-template-columns: 1fr;
-                gap: 0.7rem;
-                padding: 1rem;
-            }
-
-            .activity-time {
-                flex-direction: row;
-                justify-content: flex-start;
-                align-items: center;
-                gap: 0.5rem;
-                padding-top: 0;
-            }
-
-            .time-dot {
-                margin-top: 0;
-            }
-
-            .activity-link {
-                padding: 0.45rem 0.7rem;
-            }
-
-            .lodge-card {
-                flex-direction: column;
-                gap: 1rem;
-                margin: 2.2rem 0;
-                padding: 1.2rem;
-            }
-
-            .hero-title {
-                font-size: 3.2rem;
-            }
-
-            #itineraryMap {
-                height: 300px;
-            }
-
-            .tips-section {
-                padding: 1.4rem;
-                margin: 2.2rem 0;
-            }
-
-            .tips-title {
-                font-size: 1.2rem;
-            }
-
-            .map-section {
-                margin: 2rem 0 2.2rem;
-                padding: 0.9rem;
-            }
-        }
-
-        /* ─── PROGRESS BAR ─── */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 2px;
-            background: linear-gradient(to right, var(--gold), var(--amber));
-            z-index: 200;
-            transition: width 0.1s;
-            width: 0%;
-        }
-
-        body[data-theme='dark'] .weather-bar {
-            background: #1f2b1f;
-        }
-
-        body[data-theme='dark'] .activity-desc,
-        body[data-theme='dark'] .map-popup-loc,
-        body[data-theme='dark'] .lodge-detail {
-            color: #bdd0b8;
-        }
-
-        body[data-theme='dark'] .activity-tip {
-            border-color: rgba(184, 203, 179, 0.16);
-            color: #b8cbb3;
-        }
-
-        body[data-theme='dark'] .day-tab:hover {
-            background: #222d22;
-        }
-
-        body[data-theme='dark'] .day-tab.active {
-            background: #314631;
-        }
-
-        /* ─── DAY TAB INDICATOR ─── */
-        .day-tab-strip {
-            display: flex;
-            gap: 0;
-            margin: 3rem 0 0;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(74, 103, 65, 0.15);
-        }
-
-        .day-tab {
-            flex: 1;
-            padding: 0.9rem 0.5rem;
-            text-align: center;
-            cursor: pointer;
-            background: white;
-            transition: background 0.2s, color 0.2s;
-            border-right: 1px solid rgba(74, 103, 65, 0.1);
-        }
-
-        .day-tab:last-child {
-            border-right: none;
-        }
-
-        .day-tab:hover {
-            background: var(--warm);
-        }
-
-        .day-tab.active {
-            background: var(--pine);
-            color: var(--cream);
-        }
-
-        .day-tab-label {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.58rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--stone);
-            display: block;
-            margin-bottom: 0.15rem;
-        }
-
-        .day-tab.active .day-tab-label {
-            color: var(--mist);
-        }
-
-        .day-tab-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--pine);
-        }
-
-        .day-tab.active .day-tab-name {
-            color: var(--gold);
-        }
-
-        /* ─── MAP ─── */
-        .map-section {
-            margin: 3rem 0 4rem;
-            background: #fff;
-            border: 1px solid rgba(74, 103, 65, 0.12);
-            border-radius: 16px;
-            padding: 1.2rem;
-            box-shadow: 0 8px 24px rgba(26, 46, 26, 0.06);
-        }
-
-        .map-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            color: var(--pine);
-            margin-bottom: 0.2rem;
-        }
-
-        .map-subtitle {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.62rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--stone);
-            margin-bottom: 0.9rem;
-        }
-
-        #itineraryMap {
-            width: 100%;
-            height: 420px;
-            border-radius: 12px;
-            border: 1px solid rgba(74, 103, 65, 0.15);
-            overflow: hidden;
-        }
-
-        .leaflet-popup-content-wrapper {
-            border-radius: 10px;
-        }
-
-        .map-popup {
-            font-family: 'Crimson Pro', Georgia, serif;
-            color: var(--pine);
-        }
-
-        .map-popup-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
-            line-height: 1.2;
-        }
-
-        .map-popup-meta {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.62rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--stone);
-            margin-bottom: 0.35rem;
-        }
-
-        .map-popup-loc {
-            font-size: 0.9rem;
-            line-height: 1.35;
-        }
-
-        .map-popup-actions {
-            display: flex;
-            gap: 0.4rem;
-            margin-top: 0.55rem;
-        }
-
-        .map-popup-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.28rem 0.6rem;
-            border-radius: 999px;
-            text-decoration: none;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            border: 1px solid transparent;
-        }
-
-        .map-popup-btn.google {
-            background: #f3f7ff;
-            border-color: #c7d8ff;
-            color: #1f4fbf;
-        }
-
-        .map-popup-btn.apple {
-            background: #f4f4f4;
-            border-color: #d7d7d7;
-            color: #2d2d2d;
-        }
-
-        @media (max-width: 500px) {
-            .day-tab-name {
-                font-size: 0.7rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Urubici — Roteiro de Viagem</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%221a2e1a%22><text y=%221.2em%22 font-size=%2218%22>🌲</text></svg>">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <style>
+    :root {
+      --pine: #1a2e1a;
+      --forest: #2d4a2d;
+      --moss: #4a6741;
+      --sage: #7a9e6e;
+      --mist: #b8cbb3;
+      --cream: #f5f0e8;
+      --warm: #ede5d0;
+      --stone: #9b8f7a;
+      --amber: #c4762a;
+      --gold: #e8a84a;
+      --snow: #ffffff;
+      --fog: rgba(26, 46, 26, 0.06);
+    }
+
+    body {
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    body[data-theme='dark'] {
+      --pine: #dbead7;
+      --forest: #98bf95;
+      --moss: #8fb38a;
+      --sage: #779d71;
+      --mist: #5d7759;
+      --cream: #101410;
+      --warm: #1a2219;
+      --stone: #a4b7a0;
+      --amber: #f1b262;
+      --gold: #ffd087;
+      --snow: #1b231b;
+      --fog: rgba(230, 246, 228, 0.06);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--pine);
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── GRAIN OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.5;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      background: var(--pine);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 2rem;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 110%, #2d4a2d 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 20% 0%, #4a6741 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 80% 10%, #1a2e1a 0%, transparent 50%);
+      opacity: 0.9;
+    }
+
+    /* Silhouette mountains */
+    .mountains {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 45%;
+    }
+
+    .mountains svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Stars */
+    .stars {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 15%, rgba(184, 203, 179, 0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 8%, rgba(184, 203, 179, 0.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 40% 20%, rgba(232, 168, 74, 0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 5%, rgba(184, 203, 179, 0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 12%, rgba(184, 203, 179, 0.3) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 85% 7%, rgba(184, 203, 179, 0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 92% 18%, rgba(184, 203, 179, 0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 30%, rgba(184, 203, 179, 0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 25%, rgba(184, 203, 179, 0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 78% 35%, rgba(184, 203, 179, 0.3) 0%, transparent 100%);
+      animation: twinkle 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from {
+        opacity: 0.7;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      animation: heroFade 1.2s ease both;
+    }
+
+    @keyframes heroFade {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight: 900;
+      color: var(--cream);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-subtitle {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--mist);
+      margin-top: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-dates {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--sage);
+      margin-bottom: 3rem;
+    }
+
+    .hero-lodge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(184, 203, 179, 0.2);
+      border-radius: 3rem;
+      padding: 0.6rem 1.4rem;
+      color: var(--mist);
+      font-size: 0.9rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-lodge .icon {
+      font-size: 1rem;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--mist);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      animation: bounce 2s ease-in-out infinite;
+      cursor: pointer;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(6px);
+      }
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(74, 103, 65, 0.15);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      transition: box-shadow 0.3s;
+    }
+
+    nav.scrolled {
+      box-shadow: 0 2px 20px rgba(26, 46, 26, 0.08);
+    }
+
+    body[data-theme='dark'] nav {
+      background: rgba(16, 20, 16, 0.88);
+      border-bottom-color: rgba(184, 203, 179, 0.18);
+    }
+
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--pine);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .nav-days {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .nav-day {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      padding: 0.3rem 0.7rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--stone);
+      border: 1px solid transparent;
+      background: none;
+      text-transform: uppercase;
+    }
+
+    .nav-day:hover {
+      color: var(--pine);
+      border-color: var(--mist);
+    }
+
+    .nav-day.active {
+      background: var(--pine);
+      color: var(--cream);
+    }
+
+    .theme-toggle {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: 1px solid rgba(74, 103, 65, 0.2);
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--pine);
+      font-size: 1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.25s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(26, 46, 26, 0.12);
+    }
+
+    body[data-theme='dark'] .theme-toggle {
+      background: rgba(40, 54, 40, 0.95);
+      border-color: rgba(184, 203, 179, 0.28);
+      color: #ffd087;
+    }
+
+    /* ─── WEATHER BADGE ─── */
+    .weather-bar {
+      background: var(--forest);
+      color: var(--mist);
+      text-align: center;
+      padding: 0.6rem 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .weather-bar span {
+      color: var(--gold);
+    }
+
+    /* ─── MAIN LAYOUT ─── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ─── DAY SECTIONS ─── */
+    .day-section {
+      padding: 5rem 0 3rem;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .day-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .day-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .day-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 6rem;
+      font-weight: 900;
+      color: var(--mist);
+      line-height: 1;
+      flex-shrink: 0;
+      line-height: 0.85;
+      margin-top: 0.2rem;
+    }
+
+    .day-info {
+      flex: 1;
+    }
+
+    .day-weekday {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.3rem;
+    }
+
+    .day-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: var(--pine);
+      line-height: 1.1;
+    }
+
+    .day-title em {
+      font-style: italic;
+      color: var(--moss);
+    }
+
+    .day-divider {
+      height: 1px;
+      background: linear-gradient(to right, var(--mist), transparent);
+      margin-top: 1.5rem;
+    }
+
+    /* ─── ACTIVITY CARDS ─── */
+    .activities {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .activity {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid rgba(74, 103, 65, 0.1);
+      position: relative;
+      overflow: hidden;
+      /* transition: transform 0.25s, box-shadow 0.25s; */
+    }
+
+    body[data-theme='dark'] .activity,
+    body[data-theme='dark'] .map-section,
+    body[data-theme='dark'] .day-tab {
+      background: #171f17;
+      border-color: rgba(184, 203, 179, 0.16);
+    }
+
+    .activity::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--sage);
+      border-radius: 0;
+    }
+
+    .activity.highlight::before {
+      background: var(--amber);
+    }
+
+    .activity.night::before {
+      background: var(--forest);
+    }
+
+    .activity:hover {
+      /* transform: translateY(-2px); */
+      box-shadow: 0 8px 32px rgba(26, 46, 26, 0.1);
+    }
+
+    .activity-time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.3rem;
+      padding-top: 0.1rem;
+    }
+
+    .time-text {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--moss);
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .activity.night .time-text {
+      color: var(--stone);
+    }
+
+    .activity.highlight .time-text {
+      color: var(--amber);
+    }
+
+    .time-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--sage);
+      margin-top: 0.3rem;
+    }
+
+    .activity.highlight .time-dot {
+      background: var(--amber);
+    }
+
+    .activity.night .time-dot {
+      background: var(--forest);
+    }
+
+    .activity-body {
+      flex: 1;
+    }
+
+    .activity-emoji {
+      font-size: 1.4rem;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    .activity-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--pine);
+      margin-bottom: 0.2rem;
+      line-height: 1.2;
+    }
+
+    .activity-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--stone);
+      margin-bottom: 0.6rem;
+    }
+
+    .activity-desc {
+      font-size: 0.95rem;
+      color: #4a4a3a;
+      line-height: 1.6;
+    }
+
+    .activity-tip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.8rem;
+      background: var(--fog);
+      border-radius: 6px;
+      padding: 0.4rem 0.7rem;
+      font-size: 0.82rem;
+      color: var(--stone);
+      border: 1px solid rgba(74, 103, 65, 0.08);
+    }
+
+    .activity-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.75rem;
+    }
+
+    .activity-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.62rem;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid rgba(74, 103, 65, 0.12);
+      background: #fcfbf8;
+      color: var(--pine);
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    body[data-theme='dark'] .activity-link {
+      background: #1d261d;
+      border-color: rgba(184, 203, 179, 0.2);
+      color: #dbead7;
+    }
+
+    .activity-link:hover {
+      /* transform: translateY(-1px); */
+      box-shadow: 0 4px 14px rgba(26, 46, 26, 0.09);
+    }
+
+    .activity-link-icon {
+      font-size: 0.86rem;
+      line-height: 1;
+    }
+
+    .activity-link-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .activity-link.instagram {
+      background: #fff6fa;
+      border-color: #f2c8db;
+      color: #8a2c5f;
+    }
+
+    .activity-link.maps {
+      background: #f3f7ff;
+      border-color: #c7d8ff;
+      color: #1f4fbf;
+    }
+
+    .activity-link.street {
+      background: #effaf3;
+      border-color: #bfdfca;
+      color: #1d6d43;
+    }
+
+    /* ─── BADGE SCHEDULED ─── */
+    .badge-scheduled {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #fff7ed;
+      border: 1px solid #f0c070;
+      border-radius: 2rem;
+      padding: 0.2rem 0.6rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.5rem;
+      margin-top: 0.2rem;
+    }
+
+    body[data-theme='dark'] .badge-scheduled {
+      background: #3a2d17;
+      border-color: #8f6b33;
+      color: #ffd087;
+    }
+
+    /* ─── TIPS BOX ─── */
+    .tips-section {
+      margin: 4rem 0;
+      background: var(--pine);
+      border-radius: 16px;
+      padding: 2.5rem;
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tips-section::before {
+      content: '⚠';
+      position: absolute;
+      right: 2rem;
+      top: 1rem;
+      font-size: 5rem;
+      opacity: 0.05;
+    }
+
+    .tips-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      color: var(--gold);
+    }
+
+    .tips-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .tips-list li {
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+      font-size: 0.95rem;
+      color: var(--mist);
+      line-height: 1.5;
+    }
+
+    .tips-list li::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ─── LODGE CARD ─── */
+    .lodge-card {
+      background: var(--warm);
+      border: 1px solid rgba(155, 143, 122, 0.25);
+      border-radius: 16px;
+      padding: 2rem;
+      margin: 4rem 0;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    body[data-theme='dark'] .lodge-card {
+      border-color: rgba(184, 203, 179, 0.18);
+    }
+
+    .lodge-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+
+    .lodge-info-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--stone);
+      margin-bottom: 0.3rem;
+    }
+
+    .lodge-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--pine);
+      margin-bottom: 0.4rem;
+    }
+
+    .lodge-detail {
+      font-size: 0.9rem;
+      color: var(--stone);
+      font-style: italic;
+    }
+
+    /* ─── TEMPERATURE ─── */
+    .temp-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #e8f0e8;
+      border-radius: 6px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.8rem;
+      color: var(--forest);
+      margin-top: 0.4rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    body[data-theme='dark'] .temp-note {
+      background: #213021;
+      color: #c9dec4;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--pine);
+      color: var(--sage);
+      text-align: center;
+      padding: 3rem 1.5rem;
+      margin-top: 6rem;
+    }
+
+    footer .footer-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      opacity: 0.6;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.1em;
+    }
+
+    /* ─── DAY SEPARATOR ─── */
+    .day-sep {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .day-sep::before,
+    .day-sep::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--mist);
+      opacity: 0.4;
+    }
+
+    .day-sep span {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--stone);
+      text-transform: uppercase;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 820px) {
+      .day-tab-strip {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+      }
+
+      .day-tab {
+        min-width: 150px;
+        scroll-snap-align: start;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        padding: 0 0.8rem;
+        height: 52px;
+      }
+
+      .nav-days {
+        display: none;
+      }
+
+      .nav-brand {
+        font-size: 1rem;
+      }
+
+      .theme-toggle {
+        width: 34px;
+        height: 34px;
+        font-size: 0.95rem;
+      }
+
+      .weather-bar {
+        font-size: 0.56rem;
+        letter-spacing: 0.08em;
+        padding: 0.65rem 0.7rem;
+        line-height: 1.5;
+      }
+
+      main {
+        padding: 0 0.95rem;
+      }
+
+      .hero {
+        min-height: 86vh;
+        padding: 1.2rem;
+      }
+
+      .hero-tag {
+        letter-spacing: 0.2em;
+        margin-bottom: 1rem;
+      }
+
+      .day-header {
+        gap: 0.7rem;
+        margin-bottom: 1.8rem;
+        flex-direction: column;
+      }
+
+      .day-number {
+        font-size: 3rem;
+        margin-top: 0;
+      }
+
+      .day-section {
+        padding: 3rem 0 1.5rem;
+      }
+
+      .activity {
+        grid-template-columns: 1fr;
+        gap: 0.7rem;
+        padding: 1rem;
+      }
+
+      .activity-time {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.5rem;
+        padding-top: 0;
+      }
+
+      .time-dot {
+        margin-top: 0;
+      }
+
+      .activity-link {
+        padding: 0.45rem 0.7rem;
+      }
+
+      .lodge-card {
+        flex-direction: column;
+        gap: 1rem;
+        margin: 2.2rem 0;
+        padding: 1.2rem;
+      }
+
+      .hero-title {
+        font-size: 3.2rem;
+      }
+
+      #itineraryMap {
+        height: 300px;
+      }
+
+      .tips-section {
+        padding: 1.4rem;
+        margin: 2.2rem 0;
+      }
+
+      .tips-title {
+        font-size: 1.2rem;
+      }
+
+      .map-section {
+        margin: 2rem 0 2.2rem;
+        padding: 0.9rem;
+      }
+    }
+
+    /* ─── PROGRESS BAR ─── */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--gold), var(--amber));
+      z-index: 200;
+      transition: width 0.1s;
+      width: 0%;
+    }
+
+    body[data-theme='dark'] .weather-bar {
+      background: #1f2b1f;
+    }
+
+    body[data-theme='dark'] .activity-desc,
+    body[data-theme='dark'] .map-popup-loc,
+    body[data-theme='dark'] .lodge-detail {
+      color: #bdd0b8;
+    }
+
+    body[data-theme='dark'] .activity-tip {
+      border-color: rgba(184, 203, 179, 0.16);
+      color: #b8cbb3;
+    }
+
+    body[data-theme='dark'] .day-tab:hover {
+      background: #222d22;
+    }
+
+    body[data-theme='dark'] .day-tab.active {
+      background: #314631;
+    }
+
+    /* ─── DAY TAB INDICATOR ─── */
+    .day-tab-strip {
+      display: flex;
+      gap: 0;
+      margin: 3rem 0 0;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(74, 103, 65, 0.15);
+    }
+
+    .day-tab {
+      flex: 1;
+      padding: 0.9rem 0.5rem;
+      text-align: center;
+      cursor: pointer;
+      background: white;
+      transition: background 0.2s, color 0.2s;
+      border-right: 1px solid rgba(74, 103, 65, 0.1);
+    }
+
+    .day-tab:last-child {
+      border-right: none;
+    }
+
+    .day-tab:hover {
+      background: var(--warm);
+    }
+
+    .day-tab.active {
+      background: var(--pine);
+      color: var(--cream);
+    }
+
+    .day-tab-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--stone);
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .day-tab.active .day-tab-label {
+      color: var(--mist);
+    }
+
+    .day-tab-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--pine);
+    }
+
+    .day-tab.active .day-tab-name {
+      color: var(--gold);
+    }
+
+    /* ─── MAP ─── */
+    .map-section {
+      margin: 3rem 0 4rem;
+      background: #fff;
+      border: 1px solid rgba(74, 103, 65, 0.12);
+      border-radius: 16px;
+      padding: 1.2rem;
+      box-shadow: 0 8px 24px rgba(26, 46, 26, 0.06);
+    }
+
+    .map-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--pine);
+      margin-bottom: 0.2rem;
+    }
+
+    .map-subtitle {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 0.9rem;
+    }
+
+    #itineraryMap {
+      width: 100%;
+      height: 420px;
+      border-radius: 12px;
+      border: 1px solid rgba(74, 103, 65, 0.15);
+      overflow: hidden;
+    }
+
+    .leaflet-popup-content-wrapper {
+      border-radius: 10px;
+    }
+
+    .map-popup {
+      font-family: 'Crimson Pro', Georgia, serif;
+      color: var(--pine);
+    }
+
+    .map-popup-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+      line-height: 1.2;
+    }
+
+    .map-popup-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--stone);
+      margin-bottom: 0.35rem;
+    }
+
+    .map-popup-loc {
+      font-size: 0.9rem;
+      line-height: 1.35;
+    }
+
+    .map-popup-actions {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.55rem;
+    }
+
+    .map-popup-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.28rem 0.6rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+    }
+
+    .map-popup-btn.google {
+      background: #f3f7ff;
+      border-color: #c7d8ff;
+      color: #1f4fbf;
+    }
+
+    .map-popup-btn.apple {
+      background: #f4f4f4;
+      border-color: #d7d7d7;
+      color: #2d2d2d;
+    }
+
+    @media (max-width: 500px) {
+      .day-tab-name {
+        font-size: 0.7rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <div class="progress-bar" id="progressBar"></div>
+  <div class="progress-bar" id="progressBar"></div>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="stars"></div>
-        <div class="mountains">
-            <svg viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                <polygon
-                    points="0,400 0,280 180,140 320,220 480,80 620,180 720,60 860,160 980,90 1100,170 1260,50 1440,130 1440,400"
-                    fill="#1a2e1a" />
-                <polygon
-                    points="0,400 0,320 100,240 240,300 380,200 500,260 640,180 760,240 900,170 1020,220 1160,160 1300,200 1440,160 1440,400"
-                    fill="#141f14" opacity="0.9" />
-                <polygon
-                    points="0,400 0,360 120,310 300,360 450,290 600,340 750,280 900,330 1080,270 1200,320 1350,285 1440,310 1440,400"
-                    fill="#0f170f" />
-            </svg>
-        </div>
-        <div class="hero-content">
-            <span class="hero-tag">✦ Roteiro de Viagem ✦</span>
-            <h1 class="hero-title">Uru<em>bici</em></h1>
-            <p class="hero-subtitle">Serra Catarinense — Entre névoas e araucárias</p>
-            <div class="hero-dates" id="heroDates">Quinta, 3 Abr — Domingo, 6 Abr · 2026</div>
-            <div class="hero-lodge">
-                <span class="icon">🏡</span>
-                <span id="heroLodgeText">Hospedagem · Cabana Vó Maria 2 (Airbnb)</span>
-            </div>
-        </div>
-        <div class="scroll-hint">
-            <span>rolar</span>
-            <svg width="12" height="16" viewBox="0 0 12 16" fill="none">
-                <path d="M6 1v14M1 10l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-            </svg>
-        </div>
-    </section>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="stars"></div>
+    <div class="mountains">
+      <svg viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <polygon
+          points="0,400 0,280 180,140 320,220 480,80 620,180 720,60 860,160 980,90 1100,170 1260,50 1440,130 1440,400"
+          fill="#1a2e1a" />
+        <polygon
+          points="0,400 0,320 100,240 240,300 380,200 500,260 640,180 760,240 900,170 1020,220 1160,160 1300,200 1440,160 1440,400"
+          fill="#141f14" opacity="0.9" />
+        <polygon
+          points="0,400 0,360 120,310 300,360 450,290 600,340 750,280 900,330 1080,270 1200,320 1350,285 1440,310 1440,400"
+          fill="#0f170f" />
+      </svg>
+    </div>
+    <div class="hero-content">
+      <span class="hero-tag">✦ Roteiro de Viagem ✦</span>
+      <h1 class="hero-title">Uru<em>bici</em></h1>
+      <p class="hero-subtitle">Serra Catarinense — Entre névoas e araucárias</p>
+      <div class="hero-dates" id="heroDates">Quinta, 3 Abr — Domingo, 6 Abr · 2026</div>
+      <div class="hero-lodge">
+        <span class="icon">🏡</span>
+        <span id="heroLodgeText">Hospedagem · Cabana Vó Maria 2 (Airbnb)</span>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>rolar</span>
+      <svg width="12" height="16" viewBox="0 0 12 16" fill="none">
+        <path d="M6 1v14M1 10l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </div>
+  </section>
 
-    <!-- WEATHER BAR -->
-    <div class="weather-bar" id="weatherBar"></div>
+  <!-- WEATHER BAR -->
+  <div class="weather-bar" id="weatherBar"></div>
 
-    <!-- NAV -->
-    <nav id="mainNav">
-        <div class="nav-brand" id="navBrand">Urubici '26</div>
-        <div class="nav-actions">
-            <div class="nav-days" id="navDays"></div>
-            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar tema">🌙</button>
-        </div>
-    </nav>
+  <!-- NAV -->
+  <nav id="mainNav">
+    <div class="nav-brand" id="navBrand">Urubici '26</div>
+    <div class="nav-actions">
+      <div class="nav-days" id="navDays"></div>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar tema">🌙</button>
+    </div>
+  </nav>
 
-    <main>
+  <main>
 
-        <div class="lodge-card" id="lodgeCard"></div>
+    <div class="lodge-card" id="lodgeCard"></div>
 
-        <div class="day-tab-strip" id="dayTabs"></div>
+    <div class="day-tab-strip" id="dayTabs"></div>
 
-        <div class="map-section">
-            <div class="map-title">Mapa do roteiro</div>
-            <div class="map-subtitle">todos os itens marcados no mapa</div>
-            <div id="itineraryMap"></div>
-        </div>
+    <div class="map-section">
+      <div class="map-title">Mapa do roteiro</div>
+      <div class="map-subtitle">todos os itens marcados no mapa</div>
+      <div id="itineraryMap"></div>
+    </div>
 
-        <div id="daysContainer"></div>
+    <div id="daysContainer"></div>
 
-        <div class="tips-section">
-            <div class="tips-title">⚠️ Dicas Importantes</div>
-            <ul class="tips-list" id="tipsList"></ul>
-        </div>
+    <div class="tips-section">
+      <div class="tips-title">⚠️ Dicas Importantes</div>
+      <ul class="tips-list" id="tipsList"></ul>
+    </div>
 
-    </main>
+  </main>
 
-    <footer>
-        <div class="footer-title">Boa viagem! 🌲</div>
-        <p id="footerPeriod">Urubici · Serra Catarinense · Abr 2026</p>
-    </footer>
+  <footer>
+    <div class="footer-title">Boa viagem! 🌲</div>
+    <p id="footerPeriod">Urubici · Serra Catarinense · Abr 2026</p>
+  </footer>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script>
-        window.addEventListener('scroll', () => {
-            const total = document.body.scrollHeight - window.innerHeight;
-            const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
-            document.getElementById('progressBar').style.width = progress + '%';
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
+      document.getElementById('progressBar').style.width = progress + '%';
 
-            const nav = document.getElementById('mainNav');
-            nav.classList.toggle('scrolled', window.scrollY > 10);
+      const nav = document.getElementById('mainNav');
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    let sections = [];
+    let navBtns = [];
+    let tabBtns = [];
+    let revealObserver;
+    let sectionObserver;
+    let itineraryMap;
+    let mapMarkersLayer;
+    const THEME_STORAGE_KEY = 'viagens-theme';
+
+    function getPreferredTheme() {
+      try {
+        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+        if (savedTheme === 'dark' || savedTheme === 'light') {
+          return savedTheme;
+        }
+      } catch (error) {
+        // noop
+      }
+
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function applyTheme(theme) {
+      const nextTheme = theme === 'dark' ? 'dark' : 'light';
+      document.body.setAttribute('data-theme', nextTheme);
+
+      const toggle = document.getElementById('themeToggle');
+      if (toggle) {
+        const isDark = nextTheme === 'dark';
+        toggle.textContent = isDark ? '☀️' : '🌙';
+        toggle.setAttribute('aria-label', isDark ? 'Ativar tema claro' : 'Ativar tema escuro');
+        toggle.title = isDark ? 'Ativar tema claro' : 'Ativar tema escuro';
+      }
+    }
+
+    function initThemeToggle() {
+      applyTheme(getPreferredTheme());
+
+      const toggle = document.getElementById('themeToggle');
+      if (!toggle) {
+        return;
+      }
+
+      toggle.addEventListener('click', () => {
+        const current = document.body.getAttribute('data-theme') || 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+
+        try {
+          localStorage.setItem(THEME_STORAGE_KEY, next);
+        } catch (error) {
+          // noop
+        }
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function setActiveDay(idx) {
+      navBtns.forEach((btn, i) => btn.classList.toggle('active', i === idx));
+      tabBtns.forEach((btn, i) => btn.classList.toggle('active', i === idx));
+    }
+
+    function scrollToDay(idx) {
+      const section = sections[idx];
+      if (!section) {
+        return;
+      }
+      const offset = section.getBoundingClientRect().top + window.scrollY - 70;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    }
+
+    function setupObservers() {
+      if (revealObserver) {
+        revealObserver.disconnect();
+      }
+      if (sectionObserver) {
+        sectionObserver.disconnect();
+      }
+
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = sections.indexOf(entry.target);
+            if (idx >= 0) {
+              setActiveDay(idx);
+            }
+          }
+        });
+      }, { threshold: 0.4 });
+
+      sections.forEach((section) => {
+        revealObserver.observe(section);
+        sectionObserver.observe(section);
+      });
+    }
+
+    function renderLodge(lodge) {
+      const lodgeCard = document.getElementById('lodgeCard');
+      lodgeCard.innerHTML = '';
+
+      const icon = document.createElement('div');
+      icon.className = 'lodge-icon';
+      icon.textContent = lodge.icon || '🏡';
+
+      const content = document.createElement('div');
+
+      const title = document.createElement('div');
+      title.className = 'lodge-info-title';
+      title.textContent = lodge.title;
+
+      const name = document.createElement('div');
+      name.className = 'lodge-name';
+      name.textContent = lodge.name;
+
+      const detail = document.createElement('div');
+      detail.className = 'lodge-detail';
+      detail.textContent = lodge.detail;
+
+      const temp = document.createElement('div');
+      temp.className = 'temp-note';
+      temp.textContent = lodge.note;
+
+      content.append(title, name, detail, temp);
+      lodgeCard.append(icon, content);
+    }
+
+    function renderActivities(container, items) {
+      items.forEach((item) => {
+        if (item.separator) {
+          const sep = document.createElement('div');
+          sep.className = 'day-sep';
+          const label = document.createElement('span');
+          label.textContent = item.separator;
+          sep.appendChild(label);
+          container.appendChild(sep);
+          return;
+        }
+
+        const activity = document.createElement('div');
+        activity.className = `activity${item.variant ? ` ${item.variant}` : ''}`;
+
+        const timeCol = document.createElement('div');
+        timeCol.className = 'activity-time';
+
+        const timeText = document.createElement('div');
+        timeText.className = 'time-text';
+        timeText.textContent = item.time;
+
+        const timeDot = document.createElement('div');
+        timeDot.className = 'time-dot';
+
+        timeCol.append(timeText, timeDot);
+
+        const body = document.createElement('div');
+        body.className = 'activity-body';
+
+        const emoji = document.createElement('span');
+        emoji.className = 'activity-emoji';
+        emoji.textContent = item.emoji;
+
+        const name = document.createElement('div');
+        name.className = 'activity-name';
+        name.textContent = item.name;
+
+        const tag = document.createElement('div');
+        tag.className = 'activity-tag';
+        tag.textContent = item.tag;
+
+        body.append(emoji, name, tag);
+
+        if (item.scheduled) {
+          const badge = document.createElement('div');
+          badge.className = 'badge-scheduled';
+          badge.textContent = '✅ Visita Agendada';
+          body.appendChild(badge);
+        }
+
+        const desc = document.createElement('div');
+        desc.className = 'activity-desc';
+        desc.textContent = item.desc;
+        body.appendChild(desc);
+
+        const links = buildActivityLinks(item);
+        if (links.length > 0) {
+          const linksRow = document.createElement('div');
+          linksRow.className = 'activity-links';
+
+          links.forEach((link) => {
+            const anchor = document.createElement('a');
+            anchor.className = `activity-link ${link.kind}`;
+            anchor.href = link.url;
+            anchor.target = '_blank';
+            anchor.rel = 'noopener noreferrer';
+            anchor.setAttribute('aria-label', link.label);
+            anchor.title = link.label;
+
+            const icon = document.createElement('span');
+            icon.className = 'activity-link-icon';
+            icon.textContent = link.icon;
+
+            const label = document.createElement('span');
+            label.className = 'activity-link-label';
+            label.textContent = link.label;
+
+            anchor.append(icon, label);
+            linksRow.appendChild(anchor);
+          });
+
+          body.appendChild(linksRow);
+        }
+
+        if (item.tip) {
+          const tip = document.createElement('div');
+          tip.className = 'activity-tip';
+          tip.textContent = item.tip;
+          body.appendChild(tip);
+        }
+
+        activity.append(timeCol, body);
+        container.appendChild(activity);
+      });
+    }
+
+    function buildActivityLinks(item) {
+      const hasCoords = item.location
+        && typeof item.location.lat === 'number'
+        && typeof item.location.lng === 'number';
+
+      const placeText = item.location?.label || item.name;
+      const searchText = `${item.name} ${placeText} Santa Catarina`;
+
+      const googleMapsUrl = hasCoords
+        ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.location.lat},${item.location.lng}`)}`
+        : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchText)}`;
+
+      const instagramUrl = typeof item.instagram === 'string' && item.instagram.trim()
+        ? item.instagram
+        : null;
+
+      return [
+        {
+          kind: 'maps',
+          url: googleMapsUrl,
+          label: 'Ver no Mapa',
+          icon: '📍'
+        },
+        ...(instagramUrl ? [{
+          kind: 'instagram',
+          url: instagramUrl,
+          label: 'Instagram',
+          icon: '📸'
+        }] : [])
+      ];
+    }
+
+    function renderDays(days) {
+      const navDays = document.getElementById('navDays');
+      const dayTabs = document.getElementById('dayTabs');
+      const daysContainer = document.getElementById('daysContainer');
+
+      navDays.innerHTML = '';
+      dayTabs.innerHTML = '';
+      daysContainer.innerHTML = '';
+
+      days.forEach((day, idx) => {
+        const navBtn = document.createElement('button');
+        navBtn.className = 'nav-day';
+        navBtn.textContent = day.shortLabel;
+        navBtn.addEventListener('click', () => scrollToDay(idx));
+        navDays.appendChild(navBtn);
+
+        const tab = document.createElement('div');
+        tab.className = 'day-tab';
+        tab.addEventListener('click', () => scrollToDay(idx));
+
+        const tabLabel = document.createElement('span');
+        tabLabel.className = 'day-tab-label';
+        tabLabel.textContent = day.tabLabel;
+
+        const tabName = document.createElement('span');
+        tabName.className = 'day-tab-name';
+        tabName.textContent = day.tabName;
+
+        tab.append(tabLabel, tabName);
+        dayTabs.appendChild(tab);
+
+        const section = document.createElement('section');
+        section.className = 'day-section';
+        section.id = `day-${idx}`;
+
+        const header = document.createElement('div');
+        header.className = 'day-header';
+
+        const number = document.createElement('div');
+        number.className = 'day-number';
+        number.textContent = String(idx + 1).padStart(2, '0');
+
+        const info = document.createElement('div');
+        info.className = 'day-info';
+
+        const weekday = document.createElement('div');
+        weekday.className = 'day-weekday';
+        weekday.textContent = day.weekday;
+
+        const title = document.createElement('h2');
+        title.className = 'day-title';
+        title.appendChild(document.createTextNode(day.titlePrefix + ' '));
+        const em = document.createElement('em');
+        em.textContent = day.titleEm;
+        title.appendChild(em);
+
+        const divider = document.createElement('div');
+        divider.className = 'day-divider';
+
+        info.append(weekday, title, divider);
+        header.append(number, info);
+
+        const activities = document.createElement('div');
+        activities.className = 'activities';
+        renderActivities(activities, day.items);
+
+        section.append(header, activities);
+        daysContainer.appendChild(section);
+      });
+
+      sections = Array.from(document.querySelectorAll('.day-section'));
+      navBtns = Array.from(document.querySelectorAll('.nav-day'));
+      tabBtns = Array.from(document.querySelectorAll('.day-tab'));
+
+      setActiveDay(0);
+      setupObservers();
+    }
+
+    function renderTips(tips) {
+      const tipsList = document.getElementById('tipsList');
+      tipsList.innerHTML = '';
+      tips.forEach((tip) => {
+        const li = document.createElement('li');
+        li.textContent = tip;
+        tipsList.appendChild(li);
+      });
+    }
+
+    function renderMap(days) {
+      if (typeof window.L === 'undefined') {
+        return;
+      }
+
+      if (!itineraryMap) {
+        itineraryMap = L.map('itineraryMap', {
+          zoomControl: true,
+          scrollWheelZoom: false
         });
 
-        let sections = [];
-        let navBtns = [];
-        let tabBtns = [];
-        let revealObserver;
-        let sectionObserver;
-        let itineraryMap;
-        let mapMarkersLayer;
-        const THEME_STORAGE_KEY = 'viagens-theme';
-
-        function getPreferredTheme() {
-            try {
-                const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-                if (savedTheme === 'dark' || savedTheme === 'light') {
-                    return savedTheme;
-                }
-            } catch (error) {
-                // noop
-            }
-
-            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-
-        function applyTheme(theme) {
-            const nextTheme = theme === 'dark' ? 'dark' : 'light';
-            document.body.setAttribute('data-theme', nextTheme);
-
-            const toggle = document.getElementById('themeToggle');
-            if (toggle) {
-                const isDark = nextTheme === 'dark';
-                toggle.textContent = isDark ? '☀️' : '🌙';
-                toggle.setAttribute('aria-label', isDark ? 'Ativar tema claro' : 'Ativar tema escuro');
-                toggle.title = isDark ? 'Ativar tema claro' : 'Ativar tema escuro';
-            }
-        }
-
-        function initThemeToggle() {
-            applyTheme(getPreferredTheme());
-
-            const toggle = document.getElementById('themeToggle');
-            if (!toggle) {
-                return;
-            }
-
-            toggle.addEventListener('click', () => {
-                const current = document.body.getAttribute('data-theme') || 'light';
-                const next = current === 'dark' ? 'light' : 'dark';
-                applyTheme(next);
-
-                try {
-                    localStorage.setItem(THEME_STORAGE_KEY, next);
-                } catch (error) {
-                    // noop
-                }
-            });
-        }
-
-        function escapeHtml(value) {
-            return String(value ?? '')
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;');
-        }
-
-        function setActiveDay(idx) {
-            navBtns.forEach((btn, i) => btn.classList.toggle('active', i === idx));
-            tabBtns.forEach((btn, i) => btn.classList.toggle('active', i === idx));
-        }
-
-        function scrollToDay(idx) {
-            const section = sections[idx];
-            if (!section) {
-                return;
-            }
-            const offset = section.getBoundingClientRect().top + window.scrollY - 70;
-            window.scrollTo({ top: offset, behavior: 'smooth' });
-        }
-
-        function setupObservers() {
-            if (revealObserver) {
-                revealObserver.disconnect();
-            }
-            if (sectionObserver) {
-                sectionObserver.disconnect();
-            }
-
-            revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            sectionObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const idx = sections.indexOf(entry.target);
-                        if (idx >= 0) {
-                            setActiveDay(idx);
-                        }
-                    }
-                });
-            }, { threshold: 0.4 });
-
-            sections.forEach((section) => {
-                revealObserver.observe(section);
-                sectionObserver.observe(section);
-            });
-        }
-
-        function renderLodge(lodge) {
-            const lodgeCard = document.getElementById('lodgeCard');
-            lodgeCard.innerHTML = '';
-
-            const icon = document.createElement('div');
-            icon.className = 'lodge-icon';
-            icon.textContent = lodge.icon || '🏡';
-
-            const content = document.createElement('div');
-
-            const title = document.createElement('div');
-            title.className = 'lodge-info-title';
-            title.textContent = lodge.title;
-
-            const name = document.createElement('div');
-            name.className = 'lodge-name';
-            name.textContent = lodge.name;
-
-            const detail = document.createElement('div');
-            detail.className = 'lodge-detail';
-            detail.textContent = lodge.detail;
-
-            const temp = document.createElement('div');
-            temp.className = 'temp-note';
-            temp.textContent = lodge.note;
-
-            content.append(title, name, detail, temp);
-            lodgeCard.append(icon, content);
-        }
-
-        function renderActivities(container, items) {
-            items.forEach((item) => {
-                if (item.separator) {
-                    const sep = document.createElement('div');
-                    sep.className = 'day-sep';
-                    const label = document.createElement('span');
-                    label.textContent = item.separator;
-                    sep.appendChild(label);
-                    container.appendChild(sep);
-                    return;
-                }
-
-                const activity = document.createElement('div');
-                activity.className = `activity${item.variant ? ` ${item.variant}` : ''}`;
-
-                const timeCol = document.createElement('div');
-                timeCol.className = 'activity-time';
-
-                const timeText = document.createElement('div');
-                timeText.className = 'time-text';
-                timeText.textContent = item.time;
-
-                const timeDot = document.createElement('div');
-                timeDot.className = 'time-dot';
-
-                timeCol.append(timeText, timeDot);
-
-                const body = document.createElement('div');
-                body.className = 'activity-body';
-
-                const emoji = document.createElement('span');
-                emoji.className = 'activity-emoji';
-                emoji.textContent = item.emoji;
-
-                const name = document.createElement('div');
-                name.className = 'activity-name';
-                name.textContent = item.name;
-
-                const tag = document.createElement('div');
-                tag.className = 'activity-tag';
-                tag.textContent = item.tag;
-
-                body.append(emoji, name, tag);
-
-                if (item.scheduled) {
-                    const badge = document.createElement('div');
-                    badge.className = 'badge-scheduled';
-                    badge.textContent = '✅ Visita Agendada';
-                    body.appendChild(badge);
-                }
-
-                const desc = document.createElement('div');
-                desc.className = 'activity-desc';
-                desc.textContent = item.desc;
-                body.appendChild(desc);
-
-                const links = buildActivityLinks(item);
-                if (links.length > 0) {
-                    const linksRow = document.createElement('div');
-                    linksRow.className = 'activity-links';
-
-                    links.forEach((link) => {
-                        const anchor = document.createElement('a');
-                        anchor.className = `activity-link ${link.kind}`;
-                        anchor.href = link.url;
-                        anchor.target = '_blank';
-                        anchor.rel = 'noopener noreferrer';
-                        anchor.setAttribute('aria-label', link.label);
-                        anchor.title = link.label;
-
-                        const icon = document.createElement('span');
-                        icon.className = 'activity-link-icon';
-                        icon.textContent = link.icon;
-
-                        const label = document.createElement('span');
-                        label.className = 'activity-link-label';
-                        label.textContent = link.label;
-
-                        anchor.append(icon, label);
-                        linksRow.appendChild(anchor);
-                    });
-
-                    body.appendChild(linksRow);
-                }
-
-                if (item.tip) {
-                    const tip = document.createElement('div');
-                    tip.className = 'activity-tip';
-                    tip.textContent = item.tip;
-                    body.appendChild(tip);
-                }
-
-                activity.append(timeCol, body);
-                container.appendChild(activity);
-            });
-        }
-
-        function buildActivityLinks(item) {
-            const hasCoords = item.location
-                && typeof item.location.lat === 'number'
-                && typeof item.location.lng === 'number';
-
-            const placeText = item.location?.label || item.name;
-            const searchText = `${item.name} ${placeText} Santa Catarina`;
-
-            const googleMapsUrl = hasCoords
-                ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.location.lat},${item.location.lng}`)}`
-                : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchText)}`;
-
-            const instagramUrl = typeof item.instagram === 'string' && item.instagram.trim()
-                ? item.instagram
-                : null;
-
-            return [
-                {
-                    kind: 'maps',
-                    url: googleMapsUrl,
-                    label: 'Ver no Mapa',
-                    icon: '📍'
-                },
-                ...(instagramUrl ? [{
-                    kind: 'instagram',
-                    url: instagramUrl,
-                    label: 'Instagram',
-                    icon: '📸'
-                }] : [])
-            ];
-        }
-
-        function renderDays(days) {
-            const navDays = document.getElementById('navDays');
-            const dayTabs = document.getElementById('dayTabs');
-            const daysContainer = document.getElementById('daysContainer');
-
-            navDays.innerHTML = '';
-            dayTabs.innerHTML = '';
-            daysContainer.innerHTML = '';
-
-            days.forEach((day, idx) => {
-                const navBtn = document.createElement('button');
-                navBtn.className = 'nav-day';
-                navBtn.textContent = day.shortLabel;
-                navBtn.addEventListener('click', () => scrollToDay(idx));
-                navDays.appendChild(navBtn);
-
-                const tab = document.createElement('div');
-                tab.className = 'day-tab';
-                tab.addEventListener('click', () => scrollToDay(idx));
-
-                const tabLabel = document.createElement('span');
-                tabLabel.className = 'day-tab-label';
-                tabLabel.textContent = day.tabLabel;
-
-                const tabName = document.createElement('span');
-                tabName.className = 'day-tab-name';
-                tabName.textContent = day.tabName;
-
-                tab.append(tabLabel, tabName);
-                dayTabs.appendChild(tab);
-
-                const section = document.createElement('section');
-                section.className = 'day-section';
-                section.id = `day-${idx}`;
-
-                const header = document.createElement('div');
-                header.className = 'day-header';
-
-                const number = document.createElement('div');
-                number.className = 'day-number';
-                number.textContent = String(idx + 1).padStart(2, '0');
-
-                const info = document.createElement('div');
-                info.className = 'day-info';
-
-                const weekday = document.createElement('div');
-                weekday.className = 'day-weekday';
-                weekday.textContent = day.weekday;
-
-                const title = document.createElement('h2');
-                title.className = 'day-title';
-                title.appendChild(document.createTextNode(day.titlePrefix + ' '));
-                const em = document.createElement('em');
-                em.textContent = day.titleEm;
-                title.appendChild(em);
-
-                const divider = document.createElement('div');
-                divider.className = 'day-divider';
-
-                info.append(weekday, title, divider);
-                header.append(number, info);
-
-                const activities = document.createElement('div');
-                activities.className = 'activities';
-                renderActivities(activities, day.items);
-
-                section.append(header, activities);
-                daysContainer.appendChild(section);
-            });
-
-            sections = Array.from(document.querySelectorAll('.day-section'));
-            navBtns = Array.from(document.querySelectorAll('.nav-day'));
-            tabBtns = Array.from(document.querySelectorAll('.day-tab'));
-
-            setActiveDay(0);
-            setupObservers();
-        }
-
-        function renderTips(tips) {
-            const tipsList = document.getElementById('tipsList');
-            tipsList.innerHTML = '';
-            tips.forEach((tip) => {
-                const li = document.createElement('li');
-                li.textContent = tip;
-                tipsList.appendChild(li);
-            });
-        }
-
-        function renderMap(days) {
-            if (typeof window.L === 'undefined') {
-                return;
-            }
-
-            if (!itineraryMap) {
-                itineraryMap = L.map('itineraryMap', {
-                    zoomControl: true,
-                    scrollWheelZoom: false
-                });
-
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '&copy; OpenStreetMap contributors'
-                }).addTo(itineraryMap);
-            }
-
-            if (mapMarkersLayer) {
-                mapMarkersLayer.remove();
-            }
-            mapMarkersLayer = L.layerGroup().addTo(itineraryMap);
-
-            const bounds = [];
-
-            days.forEach((day, dayIdx) => {
-                day.items.forEach((item) => {
-                    if (item.separator || !item.location || typeof item.location.lat !== 'number' || typeof item.location.lng !== 'number') {
-                        return;
-                    }
-
-                    const marker = L.marker([item.location.lat, item.location.lng]);
-                    const locationLabel = item.location.label || item.name;
-                    const googleUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.location.lat},${item.location.lng}`)}`;
-                    const appleUrl = `https://maps.apple.com/?ll=${encodeURIComponent(`${item.location.lat},${item.location.lng}`)}&q=${encodeURIComponent(locationLabel)}`;
-                    const popup = `
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(itineraryMap);
+      }
+
+      if (mapMarkersLayer) {
+        mapMarkersLayer.remove();
+      }
+      mapMarkersLayer = L.layerGroup().addTo(itineraryMap);
+
+      const bounds = [];
+
+      days.forEach((day, dayIdx) => {
+        day.items.forEach((item) => {
+          if (item.separator || !item.location || typeof item.location.lat !== 'number' || typeof item.location.lng !== 'number') {
+            return;
+          }
+
+          const marker = L.marker([item.location.lat, item.location.lng]);
+          const locationLabel = item.location.label || item.name;
+          const googleUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.location.lat},${item.location.lng}`)}`;
+          const appleUrl = `https://maps.apple.com/?ll=${encodeURIComponent(`${item.location.lat},${item.location.lng}`)}&q=${encodeURIComponent(locationLabel)}`;
+          const popup = `
                         <div class="map-popup">
                             <div class="map-popup-title">${escapeHtml(item.emoji)} ${escapeHtml(item.name)}</div>
                             <div class="map-popup-meta">Dia ${dayIdx + 1} · ${escapeHtml(item.time)} · ${escapeHtml(day.shortLabel)}</div>
@@ -1639,103 +1639,103 @@
                         </div>
                     `;
 
-                    marker.bindPopup(popup);
-                    marker.addTo(mapMarkersLayer);
-                    bounds.push([item.location.lat, item.location.lng]);
-                });
-            });
-
-            if (bounds.length > 0) {
-                itineraryMap.fitBounds(bounds, { padding: [32, 32] });
-            } else {
-                itineraryMap.setView([-28.0156, -49.5924], 11);
-            }
-
-            setTimeout(() => {
-                itineraryMap.invalidateSize();
-            }, 120);
-        }
-
-        function renderHeader(data) {
-            const weatherBar = document.getElementById('weatherBar');
-            weatherBar.innerHTML = `🌡 ${data.weather.fact} &nbsp;·&nbsp; <span>${data.weather.tip}</span> &nbsp;·&nbsp; Noites podem chegar a <span>${data.weather.minTemp}</span>`;
-
-            document.getElementById('navBrand').textContent = data.brand;
-            document.getElementById('heroDates').textContent = data.heroDates;
-            document.getElementById('heroLodgeText').textContent = `Hospedagem · ${data.lodge.name} (Airbnb)`;
-            document.getElementById('footerPeriod').textContent = data.footer;
-        }
-
-        function showLoadError(message) {
-            const daysContainer = document.getElementById('daysContainer');
-            daysContainer.innerHTML = '';
-
-            const errorCard = document.createElement('div');
-            errorCard.className = 'activity highlight';
-
-            const iconCol = document.createElement('div');
-            iconCol.className = 'activity-time';
-            const iconText = document.createElement('div');
-            iconText.className = 'time-text';
-            iconText.textContent = 'OPS';
-            const iconDot = document.createElement('div');
-            iconDot.className = 'time-dot';
-            iconCol.append(iconText, iconDot);
-
-            const body = document.createElement('div');
-            body.className = 'activity-body';
-
-            const emoji = document.createElement('span');
-            emoji.className = 'activity-emoji';
-            emoji.textContent = '⚠️';
-
-            const title = document.createElement('div');
-            title.className = 'activity-name';
-            title.textContent = 'Nao foi possivel carregar o roteiro';
-
-            const desc = document.createElement('div');
-            desc.className = 'activity-desc';
-            desc.textContent = message;
-
-            body.append(emoji, title, desc);
-            errorCard.append(iconCol, body);
-            daysContainer.appendChild(errorCard);
-        }
-
-        async function loadRoteiro() {
-            const response = await fetch('./roteiro.json', { cache: 'no-store' });
-            if (!response.ok) {
-                throw new Error(`Falha ao buscar roteiro.json (${response.status})`);
-            }
-            return response.json();
-        }
-
-        async function init() {
-            try {
-                const data = await loadRoteiro();
-                renderHeader(data);
-                renderLodge(data.lodge);
-                renderDays(data.days);
-                renderMap(data.days);
-                renderTips(data.tips);
-            } catch (error) {
-                console.error(error);
-                const message = window.location.protocol === 'file:'
-                    ? 'Abra o projeto com um servidor local para permitir o fetch do JSON (exemplo: python3 -m http.server 8000).'
-                    : 'Verifique se roteiro.json existe e esta valido.';
-                showLoadError(message);
-            }
-        }
-
-        // ao clicar na classe scroll-hint (rolar), rola suavemente para a div#weatherBar
-        document.querySelector('.scroll-hint').addEventListener('click', () => {
-            const offset = document.getElementById('mainNav').getBoundingClientRect().top + window.scrollY - 0;
-            window.scrollTo({ top: offset, behavior: 'smooth' });
+          marker.bindPopup(popup);
+          marker.addTo(mapMarkersLayer);
+          bounds.push([item.location.lat, item.location.lng]);
         });
+      });
 
-        initThemeToggle();
-        init();
-    </script>
+      if (bounds.length > 0) {
+        itineraryMap.fitBounds(bounds, { padding: [32, 32] });
+      } else {
+        itineraryMap.setView([-28.0156, -49.5924], 11);
+      }
+
+      setTimeout(() => {
+        itineraryMap.invalidateSize();
+      }, 120);
+    }
+
+    function renderHeader(data) {
+      const weatherBar = document.getElementById('weatherBar');
+      weatherBar.innerHTML = `🌡 ${data.weather.fact} &nbsp;·&nbsp; <span>${data.weather.tip}</span> &nbsp;·&nbsp; Noites podem chegar a <span>${data.weather.minTemp}</span>`;
+
+      document.getElementById('navBrand').textContent = data.brand;
+      document.getElementById('heroDates').textContent = data.heroDates;
+      document.getElementById('heroLodgeText').textContent = `Hospedagem · ${data.lodge.name} (Airbnb)`;
+      document.getElementById('footerPeriod').textContent = data.footer;
+    }
+
+    function showLoadError(message) {
+      const daysContainer = document.getElementById('daysContainer');
+      daysContainer.innerHTML = '';
+
+      const errorCard = document.createElement('div');
+      errorCard.className = 'activity highlight';
+
+      const iconCol = document.createElement('div');
+      iconCol.className = 'activity-time';
+      const iconText = document.createElement('div');
+      iconText.className = 'time-text';
+      iconText.textContent = 'OPS';
+      const iconDot = document.createElement('div');
+      iconDot.className = 'time-dot';
+      iconCol.append(iconText, iconDot);
+
+      const body = document.createElement('div');
+      body.className = 'activity-body';
+
+      const emoji = document.createElement('span');
+      emoji.className = 'activity-emoji';
+      emoji.textContent = '⚠️';
+
+      const title = document.createElement('div');
+      title.className = 'activity-name';
+      title.textContent = 'Nao foi possivel carregar o roteiro';
+
+      const desc = document.createElement('div');
+      desc.className = 'activity-desc';
+      desc.textContent = message;
+
+      body.append(emoji, title, desc);
+      errorCard.append(iconCol, body);
+      daysContainer.appendChild(errorCard);
+    }
+
+    async function loadRoteiro() {
+      const response = await fetch('./roteiro.json', { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(`Falha ao buscar roteiro.json (${response.status})`);
+      }
+      return response.json();
+    }
+
+    async function init() {
+      try {
+        const data = await loadRoteiro();
+        renderHeader(data);
+        renderLodge(data.lodge);
+        renderDays(data.days);
+        renderMap(data.days);
+        renderTips(data.tips);
+      } catch (error) {
+        console.error(error);
+        const message = window.location.protocol === 'file:'
+          ? 'Abra o projeto com um servidor local para permitir o fetch do JSON (exemplo: python3 -m http.server 8000).'
+          : 'Verifique se roteiro.json existe e esta valido.';
+        showLoadError(message);
+      }
+    }
+
+    // ao clicar na classe scroll-hint (rolar), rola suavemente para a div#weatherBar
+    document.querySelector('.scroll-hint').addEventListener('click', () => {
+      const offset = document.getElementById('mainNav').getBoundingClientRect().top + window.scrollY - 0;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    });
+
+    initThemeToggle();
+    init();
+  </script>
 </body>
 
 </html>
