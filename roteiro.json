@@ -33,7 +33,8 @@
                         "lat": -27.9602403,
                         "lng": -49.6790505,
                         "label": "Cabana Vo Maria 2, Urubici - SC"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/explore/tags/checkincabanavomaria2/"
                 },
                 {
                     "variant": "highlight",
@@ -45,7 +46,8 @@
                     "tip": "💧 Leve agua e um lanche para aproveitar o local",
                     "location": {
                         "label": "Morro do Parapente, Urubici - SC"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/explore/tags/morrodoparapente/"
                 },
                 {
                     "time": "15h00",
@@ -56,7 +58,8 @@
                     "tip": "🥾 Leve agua e um lanche para o percurso",
                     "location": {
                         "label": "Cascata do Vacariano, Urubici - SC"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/explore/tags/cascatadovacariano/"
                 },
                 {
                     "time": "16h00",
@@ -68,7 +71,8 @@
                         "lat": -28.0156,
                         "lng": -49.5924,
                         "label": "Centro de Urubici - SC"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/explore/tags/exploracaolivrecentrodeurubici/"
                 },
                 {
                     "time": "17h00",
@@ -81,7 +85,8 @@
                         "lat": -27.97239155917805,
                         "lng": -49.64970657474979,
                         "label": "Morro do Campestre, Urubici - SC"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/explore/tags/morrodocampestre/"
                 },
                 {
                     "separator": "Noite"
@@ -98,7 +103,8 @@
                         "lat": -28.0147,
                         "lng": -49.5929,
                         "label": "Tracado Cervejaria e Manana Artesanal, centro de Urubici"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/tracadocervejaria/"
                 }
             ]
         },
@@ -123,7 +129,8 @@
                         "lat": -28.125620566952758,
                         "lng": -49.48030234686857,
                         "label": "Morro da Igreja / Pedra Furada, Parque Nacional de Sao Joaquim"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/explore/tags/mirantemorrodaigrejapedrafurada/"
                 },
                 {
                     "time": "10h00",
@@ -136,7 +143,8 @@
                         "lat": -28.1123,
                         "lng": -49.4927,
                         "label": "Cascata Veu da Noiva, Urubici - SC"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/explore/tags/cascataveudanoiva/"
                 },
                 {
                     "time": "12h00",
@@ -160,7 +168,8 @@
                         "lat": -28.0894,
                         "lng": -49.3609,
                         "label": "Altos do Corvo Branco, Urubici - SC"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/altoscorvobranco/"
                 },
                 {
                     "separator": "Noite"
@@ -177,7 +186,8 @@
                         "lat": -27.985,
                         "lng": -49.594,
                         "label": "Cabana Vo Maria 2, Urubici - SC"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/explore/tags/jantarpizzacaseiranacabana/"
                 }
             ]
         },
@@ -201,7 +211,8 @@
                         "lat": -28.0894,
                         "lng": -49.3609,
                         "label": "Altos da Serra do Corvo Branco, Urubici - SC"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/explore/tags/altosdaserradocorvobranco/"
                 },
                 {
                     "time": "12h30",
@@ -213,7 +224,8 @@
                         "lat": -28.0408,
                         "lng": -49.5566,
                         "label": "Rancho Urubici, SC-110, Urubici - SC"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/explore/tags/almocoranchourubici/"
                 },
                 {
                     "time": "15h00",
@@ -225,7 +237,8 @@
                         "lat": -27.985,
                         "lng": -49.594,
                         "label": "Cabana Vo Maria 2, Urubici - SC"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/explore/tags/tardelivre/"
                 },
                 {
                     "separator": "Noite"
@@ -242,7 +255,8 @@
                         "lat": -28.0181,
                         "lng": -49.5922,
                         "label": "Restaurante Bodegao, Urubici - SC"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/explore/tags/jantarrestaurantebodegao/"
                 }
             ]
         },
@@ -265,7 +279,8 @@
                         "lat": -28.0147,
                         "lng": -49.5929,
                         "label": "Tracado Cervejaria e Manana Artesanal, centro de Urubici"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/tracadocervejaria/"
                 },
                 {
                     "time": "10h30",
@@ -277,7 +292,8 @@
                         "lat": -27.985,
                         "lng": -49.594,
                         "label": "Cabana Vo Maria 2, Urubici - SC"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/explore/tags/checkoutcabanavomaria2/"
                 },
                 {
                     "variant": "highlight",
@@ -290,7 +306,8 @@
                         "lat": -27.027375045670702,
                         "lng": -50.9201696266208,
                         "label": "Fraiburgo - SC (destino de retorno)"
-                    }
+                    },
+                    "instagram": "https://www.instagram.com/explore/tags/partidaretornoafraiburgo/"
                 }
             ]
         }

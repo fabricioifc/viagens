@@ -1223,15 +1223,6 @@
             });
         }
 
-        function normalizeInstagramTag(input) {
-            return String(input || '')
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '')
-                .slice(0, 60);
-        }
-
         function buildActivityLinks(item) {
             const hasCoords = item.location
                 && typeof item.location.lat === 'number'
@@ -1244,14 +1235,23 @@
                 ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.location.lat},${item.location.lng}`)}`
                 : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchText)}`;
 
-            const tag = normalizeInstagramTag(item.name || item.location?.label);
-            const instagramUrl = tag
-                ? `https://www.instagram.com/explore/tags/${tag}/`
-                : `https://www.instagram.com/`;
+            const instagramUrl = typeof item.instagram === 'string' && item.instagram.trim()
+                ? item.instagram
+                : null;
 
             return [
-                { kind: 'instagram', icon: '📸', label: 'Instagram', url: instagramUrl },
-                { kind: 'maps', icon: '📍', label: 'Google Maps', url: googleMapsUrl },
+                {
+                    kind: 'maps',
+                    url: googleMapsUrl,
+                    label: 'Ver no Mapa',
+                    icon: '📍'
+                },
+                ...(instagramUrl ? [{
+                    kind: 'instagram',
+                    url: instagramUrl,
+                    label: 'Instagram',
+                    icon: '📸'
+                }] : [])
             ];
         }
 
