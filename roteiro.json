@@ -249,13 +249,13 @@
                     "variant": "highlight",
                     "time": "12h00",
                     "emoji": "🚗",
-                    "name": "Partida - Retorno a Videira",
+                    "name": "Partida - Retorno a Fraiburgo",
                     "tag": "Viagem de Volta",
                     "desc": "Hora de voltar carregado de memorias. Ate a proxima, Urubici!",
                     "location": {
-                        "lat": -27.1775,
-                        "lng": -51.5039,
-                        "label": "Videira - SC (destino de retorno)"
+                        "lat": -27.027375045670702,
+                        "lng": -50.9201696266208,
+                        "label": "Fraiburgo - SC (destino de retorno)"
                     }
                 }
             ]
