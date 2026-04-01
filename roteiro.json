@@ -24,28 +24,62 @@
             "titleEm": "primeiras impressoes",
             "items": [
                 {
-                    "time": "15h00",
+                    "time": "12h00",
                     "emoji": "🏡",
                     "name": "Check-in - Cabana Vo Maria 2",
                     "tag": "Airbnb · Hospedagem",
                     "desc": "Chegada e instalacao na cabana. Descanse apos a viagem, prepare as malas para os dias de trilha e aproveite para conhecer o espaco.",
                     "location": {
-                        "lat": -27.985,
-                        "lng": -49.594,
+                        "lat": -27.9602403,
+                        "lng": -49.6790505,
                         "label": "Cabana Vo Maria 2, Urubici - SC"
                     }
                 },
                 {
                     "variant": "highlight",
+                    "time": "14h00",
+                    "emoji": "🪂",
+                    "name": "Morro do Parapente",
+                    "tag": "Mirante · ~R$20,00 (entrada)",
+                    "desc": "Trilha de 1 km (ida e volta) ate o mirante. A vista do vale e incrivel, especialmente no final da tarde.",
+                    "tip": "💧 Leve agua e um lanche para aproveitar o local",
+                    "location": {
+                        "label": "Morro do Parapente, Urubici - SC"
+                    }
+                },
+                {
+                    "time": "15h00",
+                    "emoji": "💦",
+                    "name": "Cascata do Vacariano",
+                    "tag": "Cachoeira · Gratis",
+                    "desc": "Trilha de 1,5 km (ida e volta) ate a cachoeira. A queda d'agua e linda, especialmente apos dias de chuva.",
+                    "tip": "🥾 Leve agua e um lanche para o percurso",
+                    "location": {
+                        "label": "Cascata do Vacariano, Urubici - SC"
+                    }
+                },
+                {
                     "time": "16h00",
+                    "emoji": "🛍️",
+                    "name": "Exploracao livre - Centro de Urubici",
+                    "tag": "Passeio Livre · Sem custo",
+                    "desc": "Aproveite para conhecer o centrinho de Urubici, com suas lojinhas de artesanato e cafes. O clima e agradavel para um passeio a pe.",
+                    "location": {
+                        "lat": -28.0156,
+                        "lng": -49.5924,
+                        "label": "Centro de Urubici - SC"
+                    }
+                },
+                {
+                    "time": "17h00",
                     "emoji": "⛰️",
                     "name": "Morro do Campestre",
-                    "tag": "Atracao Natural · ⭐ 4,8 · Aberto ate 18h",
+                    "tag": "Atracao Natural · ~R$40,00 (entrada)",
                     "desc": "Vista panoramica do vale de Urubici. Trilha de subida relativamente facil; a formacao rochosa no topo e impressionante.",
                     "tip": "🌅 Chegue ate as 16h30 para garantir a luz do por do sol",
                     "location": {
-                        "lat": -27.9494,
-                        "lng": -49.625,
+                        "lat": -27.97239155917805,
+                        "lng": -49.64970657474979,
                         "label": "Morro do Campestre, Urubici - SC"
                     }
                 },
@@ -57,9 +91,9 @@
                     "time": "19h00",
                     "emoji": "🍺",
                     "name": "Tracado Cervejaria & Manana Artesanal",
-                    "tag": "Jantar · ⭐ 4,8 · Qui-Sex: 17h30-22h",
-                    "desc": "Jantar de boas-vindas com cervejas artesanais da casa. Ambiente pequeno, acolhedor e informal.",
-                    "tip": "📞 (49) 9 9996-9174 · Fechado seg e ter",
+                    "tag": "Jantar · ~R$50,00",
+                    "desc": "Experimente a culinaria local, com pratos a base de pinhao e truta. O ambiente e rustico e acolhedor, perfeito para uma noite relaxante.",
+                    "tip": "📸 Instagram: @tracadocervejaria",
                     "location": {
                         "lat": -28.0147,
                         "lng": -49.5929,
@@ -81,23 +115,23 @@
                     "time": "08h00",
                     "emoji": "🔭",
                     "name": "Mirante Morro da Igreja - Pedra Furada",
-                    "tag": "Atracao Principal · ⭐ 4,9 · Aberto 8h-18h",
+                    "tag": "Atracao Principal · Gratis",
                     "scheduled": true,
                     "desc": "O ponto mais alto de Santa Catarina (~1.822 m). Vista epica do canion e do vale envolto em nevoa.",
                     "tip": "⚠️ Va cedo! A nevoa cobre o mirante ao longo do dia. Agasalho obrigatorio.",
                     "location": {
-                        "lat": -28.1311,
-                        "lng": -49.4794,
+                        "lat": -28.125620566952758,
+                        "lng": -49.48030234686857,
                         "label": "Morro da Igreja / Pedra Furada, Parque Nacional de Sao Joaquim"
                     }
                 },
                 {
-                    "time": "11h00",
+                    "time": "10h00",
                     "emoji": "💧",
                     "name": "Cascata Veu da Noiva",
-                    "tag": "Cachoeira · ⭐ 4,7 · Aberto 8h30-18h",
-                    "desc": "No caminho de volta do Morro da Igreja. Trilha facil ate a base da cascata.",
-                    "tip": "🎿 Tem tirolesa no local se quiser uma aventura extra",
+                    "tag": "Cachoeira · ~R$20,00 (entrada)",
+                    "desc": "Trilha de 1 km (ida e volta) ate a cachoeira. A queda d'agua e linda, especialmente apos dias de chuva.",
+                    "tip": "🥾 Leve agua e um lanche para aproveitar o local",
                     "location": {
                         "lat": -28.1123,
                         "lng": -49.4927,
@@ -105,28 +139,27 @@
                     }
                 },
                 {
-                    "time": "13h00",
+                    "time": "12h00",
                     "emoji": "🍽️",
-                    "name": "Almoco - Montes Restaurante",
-                    "tag": "Restaurante · ⭐ 4,7 · Sex: 12h-15h · 19h-22h",
-                    "desc": "Um dos melhores restaurantes de Urubici, com destaque para truta com pinhao.",
-                    "tip": "📞 (49) 9 8807-3723 · Reserve com antecedencia",
+                    "name": "Almoco",
+                    "tag": "Pausa para refeicao · ~R$40,00",
+                    "desc": "Procurar um restaurante local para almocar.",
                     "location": {
-                        "lat": -28.0202,
-                        "lng": -49.5928,
-                        "label": "Montes Restaurante, Urubici - SC"
+                        "label": "Centro de Urubici - SC"
                     }
                 },
                 {
-                    "time": "15h00",
-                    "emoji": "🛍️",
-                    "name": "Exploracao livre - Centro de Urubici",
-                    "tag": "Passeio Livre · Tarde",
-                    "desc": "Percorra as ruas do centro e descubra lojas de produtos coloniais.",
+                    "variant": "highlight",
+                    "time": "14h00",
+                    "emoji": "🦅",
+                    "name": "Altos do Corvo Branco - Serra e Parque",
+                    "tag": "Estrada cenica · R$80,00 (entrada)",
+                    "desc": "Estrada com vistas incriveis da serra. Pare nos mirantes para fotos.",
+                    "tip": "🚗 Dirija com cuidado, especialmente em dias de chuva",
                     "location": {
-                        "lat": -28.0156,
-                        "lng": -49.5924,
-                        "label": "Centro de Urubici - SC"
+                        "lat": -28.0894,
+                        "lng": -49.3609,
+                        "label": "Altos do Corvo Branco, Urubici - SC"
                     }
                 },
                 {
@@ -134,11 +167,12 @@
                 },
                 {
                     "variant": "night",
-                    "time": "19h30",
-                    "emoji": "🌙",
-                    "name": "Noite na Cabana",
-                    "tag": "Descanso · Cabana Vo Maria 2",
-                    "desc": "Noite tranquila na cabana apos um dia intenso de trilhas.",
+                    "time": "19h00",
+                    "emoji": "🍕",
+                    "name": "Jantar - Pizza Caseira na Cabana",
+                    "tag": "Jantar · ~R$50,00 (ingredientes)",
+                    "desc": "Prepare uma pizza caseira na cabana para uma noite relaxante.",
+                    "tip": "🛌 Aproveite para descansar e se preparar para o dia seguinte",
                     "location": {
                         "lat": -27.985,
                         "lng": -49.594,
