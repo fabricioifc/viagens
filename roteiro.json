@@ -249,13 +249,13 @@
                     "variant": "highlight",
                     "time": "12h00",
                     "emoji": "🚗",
-                    "name": "Partida - Retorno a Joacaba",
+                    "name": "Partida - Retorno a Videira",
                     "tag": "Viagem de Volta",
                     "desc": "Hora de voltar carregado de memorias. Ate a proxima, Urubici!",
                     "location": {
                         "lat": -27.1775,
                         "lng": -51.5039,
-                        "label": "Joaçaba - SC (destino de retorno)"
+                        "label": "Videira - SC (destino de retorno)"
                     }
                 }
             ]
