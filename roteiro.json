@@ -33,33 +33,20 @@
                         "lat": -27.9602403,
                         "lng": -49.6790505,
                         "label": "Cabana Vo Maria 2, Urubici - SC"
-                    },
-                    "instagram": "https://www.instagram.com/explore/tags/checkincabanavomaria2/"
+                    }
                 },
                 {
                     "variant": "highlight",
                     "time": "14h00",
                     "emoji": "🪂",
                     "name": "Morro do Parapente",
-                    "tag": "Mirante · ~R$20,00 (entrada)",
-                    "desc": "Trilha de 1 km (ida e volta) ate o mirante. A vista do vale e incrivel, especialmente no final da tarde.",
+                    "tag": "Mirante · R$40,00 (entrada)",
+                    "desc": "A vista do vale e incrivel, especialmente no final da tarde.",
                     "tip": "💧 Leve agua e um lanche para aproveitar o local",
                     "location": {
                         "label": "Morro do Parapente, Urubici - SC"
                     },
                     "instagram": "https://www.instagram.com/explore/tags/morrodoparapente/"
-                },
-                {
-                    "time": "15h00",
-                    "emoji": "💦",
-                    "name": "Cascata do Vacariano",
-                    "tag": "Cachoeira · Gratis",
-                    "desc": "Trilha de 1,5 km (ida e volta) ate a cachoeira. A queda d'agua e linda, especialmente apos dias de chuva.",
-                    "tip": "🥾 Leve agua e um lanche para o percurso",
-                    "location": {
-                        "label": "Cascata do Vacariano, Urubici - SC"
-                    },
-                    "instagram": "https://www.instagram.com/explore/tags/cascatadovacariano/"
                 },
                 {
                     "time": "16h00",
@@ -229,16 +216,15 @@
                 },
                 {
                     "time": "15h00",
-                    "emoji": "☕",
-                    "name": "Tarde Livre",
-                    "tag": "Descanso · Cabana",
-                    "desc": "Tarde para relaxar e recarregar as energias antes do jantar.",
+                    "emoji": "💦",
+                    "name": "Cachoeira do Vacariano",
+                    "tag": "Cachoeira · Gratis",
+                    "desc": "Trilha de 1,5 km (ida e volta) ate a cachoeira. A queda d'agua e linda, especialmente apos dias de chuva. O acesso não é recomendado para pessoas com mobilidade reduzida.",
+                    "tip": "🥾 Leve agua e um lanche para o percurso",
                     "location": {
-                        "lat": -27.985,
-                        "lng": -49.594,
-                        "label": "Cabana Vo Maria 2, Urubici - SC"
+                        "label": "Cachoeira do Vacariano, Urubici - SC"
                     },
-                    "instagram": "https://www.instagram.com/explore/tags/tardelivre/"
+                    "instagram": "https://www.instagram.com/explore/tags/cachoeiradovacariano/"
                 },
                 {
                     "separator": "Noite"
